@@ -1,4 +1,4 @@
-package com.example.backend.event;
+package com.example.backend;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -21,6 +21,10 @@ package com.example.backend.event;
 //    }
 //}
 
+import com.example.backend.calendar_user.CalendarUser;
+import com.example.backend.calendar_user.CalendarUserRepository;
+import com.example.backend.event.Event;
+import com.example.backend.event.EventRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,9 +33,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration
-public class EventConfig {
+public class SeedDB {
     @Bean
-    CommandLineRunner commandLineRunner(EventRepository repository) {
+    CommandLineRunner commandLineRunner(EventRepository repository, CalendarUserRepository calendarUserRepository) {
         return args -> {
             Event e1 = new Event(LocalDateTime.now(), "Event 1", "Some description");
             Event e2 = new Event(LocalDateTime.now(), "Event 2", "Some description 2");
@@ -39,6 +43,13 @@ public class EventConfig {
             Event e4 = new Event(LocalDateTime.now(), "Event 4", "Some description 4");
 
             repository.saveAll(List.of(e1,e2,e3,e4));
+
+            CalendarUser u1 = new CalendarUser("user1", "someHashedPassword");
+            CalendarUser u2 = new CalendarUser("user2", "someHashedPassword2");
+            CalendarUser u3 = new CalendarUser("user3", "someHashedPassword3");
+            CalendarUser u4 = new CalendarUser("user4", "someHashedPassword4");
+
+            calendarUserRepository.saveAll(List.of(u1, u2, u3, u4));
         };
     }
 }

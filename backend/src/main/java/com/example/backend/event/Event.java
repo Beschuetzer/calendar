@@ -19,20 +19,15 @@ public class Event {
     String title;
     @JsonProperty
     String description;
-    @JsonProperty
-    Long userId;
-
-    private static Long dummyId = -1L;
 
     public Event(LocalDateTime dateTime, String title, String description) {
-        this(dateTime, title, description, Event.dummyId--);
-    }
-
-    public Event(LocalDateTime dateTime, String title, String description, Long userId) {
         this.dateTime = dateTime;
         this.title = title;
         this.description = description;
-        this.userId = userId;
+    }
+
+    public Event() {
+
     }
 
     public Long getId() {
@@ -49,9 +44,5 @@ public class Event {
 
     public String getDescription() {
         return description;
-    }
-
-    public Long getUserId() {
-        return userId;
     }
 }
