@@ -14,4 +14,9 @@ public interface CalendarUserRepository extends CrudRepository<CalendarUser, Lon
             @Param("username") String username,
             @Param("hashedPassword") String hashedPassword
     );
+
+    @Query("SELECT u FROM CalendarUser u WHERE u.username = :username")
+    Optional<CalendarUser> findCalendarUserByUsername(
+            @Param("username") String username
+    );
 }

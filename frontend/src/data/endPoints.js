@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:80"
+export const baseUrl = "http://localhost:9099"
 export const loginEndpoint = {
     url: `${baseUrl}/login`,
     method: "GET",
