@@ -25,6 +25,7 @@ import com.example.backend.calendar_user.CalendarUser;
 import com.example.backend.calendar_user.CalendarUserRepository;
 import com.example.backend.event.Event;
 import com.example.backend.event.EventRepository;
+import com.example.backend.helpers.Helpers;
 import com.example.backend.invite.Invite;
 import com.example.backend.invite.InviteRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -43,10 +44,10 @@ public class SeedDB {
             InviteRepository inviteRepository
         ) {
         return args -> {
-            CalendarUser u1 = new CalendarUser("test", "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
-            CalendarUser u2 = new CalendarUser("test2", "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
-            CalendarUser u3 = new CalendarUser("test3", "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
-            CalendarUser u4 = new CalendarUser("test4", "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
+            CalendarUser u1 = new CalendarUser("test", Helpers.getSha256("test"));
+            CalendarUser u2 = new CalendarUser("test2", Helpers.getSha256("test"));
+            CalendarUser u3 = new CalendarUser("test3", Helpers.getSha256("test"));
+            CalendarUser u4 = new CalendarUser("test4", Helpers.getSha256("test"));
             calendarUserRepository.saveAll(List.of(u1, u2, u3, u4));
 
             Event e1 = new Event(4L, LocalDateTime.now(), "Event 1", "Some description");
