@@ -32,9 +32,10 @@ public class EventController {
     @PutMapping()
     public ResponseEntity editEvent(
             @RequestParam Long id,
+            @RequestParam Long ownerId,
             @RequestBody Event newEvent
     ) {
-        return this.service.editEvent(id, newEvent);
+        return this.service.editEvent(id, ownerId, newEvent);
     }
 
 }

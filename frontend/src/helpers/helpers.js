@@ -36,3 +36,8 @@ export async function getSha256(message) {
     const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
     return hashHex;
 }
+
+export function getDateTimeLocalString(javaLocalDateTimeString) {
+    const indexOfDot = javaLocalDateTimeString.indexOf('.');
+    return javaLocalDateTimeString.substring(0, indexOfDot);
+}

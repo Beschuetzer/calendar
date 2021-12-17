@@ -226,10 +226,10 @@ export function saveNewEvent(title, description, date) {
     }
 }
 
-export function editEvent(id) {
+export function editEvent(editedEvent) {
     return (dispatch, getState) => {
         const state = getState();
-        const eventToEdit = state.calendar.events.filter(event => event.id === id);
+        const eventToEdit = state.calendar.events.filter(event => event.id === editedEvent.id);
         if (eventToEdit.length === 0) return;
 
         dispatch(setEventToEdit(eventToEdit[0]));
@@ -241,14 +241,24 @@ export function updateNewEvent(newEventObj) {
     return (dispatch, getState) => {
         const state = getState();
         console.log("in update new Event")
-        console.table(newEventObj)
+        console.table(newEventObj, state)
         dispatch(setHasLoadedEventToEdit(false))
         dispatch(setShouldShowEventModal(false));
 
-        //need to get the newEvents without the one that has id and add the new one
-        const newEvents = state.calendar.events.filter(event => event.id !== newEventObj.id)
-        newEvents.push(newEventObj);
+        // //need to get the newEvents without the one that has id and add the new one
+        // const newEvents = state.calendar.events.filter(event => event.id !== newEventObj.id)
+        // newEvents.push(newEventObj);
 
+        //iterate throught each event in state and add unchanged ones
+        const newEvents = [];
+        for (let i = 0; i < state.calendar.events; i++) {
+            const eventToCheck = state.calendar.events[i];
+            console.table({eventToCheck})
+            if (eventToCheck.id == newEventObj.id) newEvents.push(newEventObj);
+            newEvents.push(eventToCheck);
+        }
+
+        console.table({newEvents})
         dispatch(setEvents(newEvents))
     }
 }

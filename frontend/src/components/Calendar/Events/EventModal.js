@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {getMinDate} from '../../../helpers/helpers'
+import {getDateTimeLocalString, getMinDate} from '../../../helpers/helpers'
 
 import {setShouldShowEventModal, saveNewEvent, closeModal, updateNewEvent} from '../../../modules/calendar'
 
@@ -18,8 +18,9 @@ function EventModal({}) {
     const [date, setDate] = useState(Date.now());
 
     useEffect(() => {
+        console.table({date})
         if (eventToEdit) {
-            setDate(eventToEdit.date);
+            setDate(getDateTimeLocalString(eventToEdit.dateTime));
             setDescription(eventToEdit.description);
             setTitle(eventToEdit.title);
         } else {
@@ -47,7 +48,7 @@ function EventModal({}) {
         resetState();
 
         if (eventToEdit) {
-            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.owner, title, description, date}));
+            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.ownerId, title, description, date}));
         }
 
         return dispatch(saveNewEvent(title, description, date));

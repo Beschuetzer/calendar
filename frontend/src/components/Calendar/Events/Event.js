@@ -37,7 +37,7 @@ function Event({
 
     const handleEditClick = (e) => {
         e.stopPropagation();
-        dispatch(editEvent(event.id))
+        dispatch(editEvent(event))
     }
 
     const handleInviteClick = (e) => {
@@ -62,7 +62,7 @@ function Event({
                         {event.description}
                     </Card.Text>
                     <Card.Text className={"mt-3"}><span
-                        className={"fw-bold"}>Due:&nbsp;</span>{new Date(event.date).toLocaleString()}
+                        className={"fw-bold"}>Due:&nbsp;</span>{new Date(event.dateTime).toLocaleString()}
                     </Card.Text>
                     <Row className={"justify-content-between"}>
                         <Col xs={4} md={"auto"}>

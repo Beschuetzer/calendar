@@ -29,13 +29,13 @@ public class EventService {
         return repository.findAll();
     }
 
-    public ResponseEntity<Event> editEvent(Long id, Event newEvent) {
-        System.out.println("id = " + id);
+    public ResponseEntity<Event> editEvent(Long id, Long ownerID, Event newEvent) {
         Optional<Event> optionalEvent = repository.findById(id);
 
         if(optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id of '%s' was not found.");
-        repository.save(newEvent);
+        if (optionalEvent.get().ownerId != ownerID) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not allowed to modify that event!");
 
+        repository.save(newEvent);
         return ResponseEntity.ok(optionalEvent.get());
     }
 }
