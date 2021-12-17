@@ -35,11 +35,11 @@ function LoginForm({
         getSha256(password)
             .then(hashedPassword => {
                 const urlToSend = `
-               ${loginEndpoint.url}?username=${username}&hashedPassword=${hashedPassword}
+               ${loginEndpoint.login.url}?username=${username}&hashedPassword=${hashedPassword}
         `
                 fetch(urlToSend, {
-                    method: loginEndpoint.method,
-                    headers: loginEndpoint.headers
+                    method: loginEndpoint.login.method,
+                    headers: loginEndpoint.login.headers
                 })
                     .then(response => {
                         return response.json();
