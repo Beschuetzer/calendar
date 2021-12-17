@@ -18,7 +18,6 @@ function EventModal({}) {
     const [date, setDate] = useState(Date.now());
 
     useEffect(() => {
-        console.table({eventToEdit})
         if (eventToEdit) {
             setDate(eventToEdit.date);
             setDescription(eventToEdit.description);

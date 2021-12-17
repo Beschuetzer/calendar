@@ -32,7 +32,6 @@ function LoginForm({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         getSha256(password)
             .then(hashedPassword => {
                 const urlToSend = `
@@ -43,23 +42,22 @@ function LoginForm({
                     headers: loginEndpoint.headers
                 })
                     .then(response => {
-                        console.table(response);
                         return response.json();
                     })
                     .then(json => {
-                        console.table(json);
                         if (json.error) return handleLoginFail(json.message);
-
-                        handleLoginSuccess();
+                        handleLoginSuccess(json.username);
                     })
-                    .catch(handleLoginFail)
-
-                dispatch(setShouldResetToastTimeout(true));
-                dispatch(setShouldDisableSubmitButton(true));
+                    .catch(msg => {
+                        handleLoginFail(msg)
+                    })
             })
             .catch(err => {
                 throw new Error(err);
             })
+
+            dispatch(setShouldResetToastTimeout(true));
+            dispatch(setShouldDisableSubmitButton(true));
     }
 
     return (

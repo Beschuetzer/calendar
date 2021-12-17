@@ -35,7 +35,6 @@ function Login(
     }
 
     function handleLoginFail(message) {
-        console.log(`exception = ${message}`);
         dispatch(handleLoginFailure(message));
     }
 

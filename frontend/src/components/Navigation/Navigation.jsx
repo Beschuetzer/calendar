@@ -44,7 +44,6 @@ function Navigation({
     }
 
     useEffect(() => {
-        console.log(logoutClass)
         setLogoutClass(currentUser ? "" : "d-none");
     }, [currentUser])
 
