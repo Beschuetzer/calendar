@@ -32,4 +32,13 @@ public class CalendarUser {
     public String getHashedPassword() {
         return hashedPassword;
     }
+
+    @Override
+    public String toString() {
+        return "CalendarUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", hashedPassword='" + hashedPassword + '\'' +
+                '}';
+    }
 }

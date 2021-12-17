@@ -22,7 +22,8 @@ public class RegisterService {
     public ResponseEntity<CalendarUser> register(CalendarUser user) {
         System.out.println(user);
         Optional<CalendarUser> optionalCalendarUser = calendarUserRepository.findCalendarUserByUsername(user.getUsername());
-        if (optionalCalendarUser.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("The username %s is already taken", user.getUsername()));
-        return ResponseEntity.ok(optionalCalendarUser.get());
+        if (optionalCalendarUser.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("The username %s is already taken", user.getUsername()));
+        calendarUserRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 }

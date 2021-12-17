@@ -12,7 +12,7 @@ import {
     setShouldDisableSubmitButton,
     setShouldResetToastTimeout,
 } from '../../modules/home';
-import {loginEndpoint} from "../../data/endPoints";
+import {endPoints} from "../../data/endPoints";
 import {getSha256} from "../../helpers/helpers";
 
 LoginForm.propTypes = {
@@ -35,11 +35,11 @@ function LoginForm({
         getSha256(password)
             .then(hashedPassword => {
                 const urlToSend = `
-               ${loginEndpoint.login.url}?username=${username}&hashedPassword=${hashedPassword}
+               ${endPoints.login.url}?username=${username}&hashedPassword=${hashedPassword}
         `
                 fetch(urlToSend, {
-                    method: loginEndpoint.login.method,
-                    headers: loginEndpoint.login.headers
+                    method: endPoints.login.method,
+                    headers: endPoints.login.headers
                 })
                     .then(response => {
                         return response.json();

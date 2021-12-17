@@ -1,6 +1,8 @@
 import {mockRegister} from '../mock/mock';
 import { setCurrentUser} from '../modules/home'
 import { setShouldShowWelcome } from '../modules/calendar'
+import {endPoints} from "../data/endPoints";
+import {getSha256} from "../helpers/helpers";
 
 const ADD_USER = 'react_redux/register/ADD_USER';
 const SET_REGISTRATION_RESULT = 'react_redux/register/SET_REGISTRATION_RESULT';
@@ -52,21 +54,33 @@ export function executeAddUser(userObj, navigate) {
     return (dispatch, getState) => {
         if (!userObj || !userObj.username || !userObj.password) return;
         console.table(userObj)
-        mockRegister(userObj, dispatch)
-            .then(response => {
-                console.log(response)
-                dispatch(setRegistrationResult(response))
 
-                if (response.username) {
-                    dispatch(setCurrentUser(response.username));
-                    dispatch(setShouldShowWelcome(true));
-                    navigate('/calendar');
-                }
+        getSha256(userObj.password)
+            .then(hashedPassword => {
+                fetch(endPoints.register.url, {
+                    headers: endPoints.register.headers,
+                    method: endPoints.register.method,
+                    body: JSON.stringify({...userObj, hashedPassword}),
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        console.table({json})
+                        dispatch(setRegistrationResult(json))
+
+                        if (json.username) {
+                            dispatch(setCurrentUser(json.username));
+                            dispatch(setShouldShowWelcome(true));
+                            navigate('/calendar');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        dispatch(setRegistrationResult(error))
+                    })
             })
-            .catch(error => {
-                console.log(error)
-                dispatch(setRegistrationResult(error))
-            })
+            .catch(e => console.log(e));
+
+
     }
 }
 
