@@ -24,4 +24,18 @@ public class EventService {
         System.out.println(optionalEvents.get());
         return ResponseEntity.ok(optionalEvents.get());
     }
+
+    public Iterable<Event> getAllEvents() {
+        return repository.findAll();
+    }
+
+    public ResponseEntity<Event> editEvent(Long id, Event newEvent) {
+        System.out.println("id = " + id);
+        Optional<Event> optionalEvent = repository.findById(id);
+
+        if(optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id of '%s' was not found.");
+        repository.save(newEvent);
+
+        return ResponseEntity.ok(optionalEvent.get());
+    }
 }

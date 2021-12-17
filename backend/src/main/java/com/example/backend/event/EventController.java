@@ -22,6 +22,20 @@ public class EventController {
         return this.service.getEvents(username);
     }
 
+    @CrossOrigin
+    @GetMapping("all")
+    public Iterable<Event> getEvents() {
+        return this.service.getAllEvents();
+    }
+
+    @CrossOrigin
+    @PutMapping()
+    public ResponseEntity editEvent(
+            @RequestParam Long id,
+            @RequestBody Event newEvent
+    ) {
+        return this.service.editEvent(id, newEvent);
+    }
 
 }
 
