@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class CalendarUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
     @JsonProperty
     String username;

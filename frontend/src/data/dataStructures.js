@@ -69,7 +69,7 @@ export function getNewEvent(owner, description, title, id = v4()) {
 export function getNewInvite(owner, eventId) {
     return {
         eventId,
-        owner,
+        // invitee,
     }
 }
 

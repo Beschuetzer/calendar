@@ -11,8 +11,10 @@ import java.time.LocalDateTime;
 @Entity
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
+    @JsonProperty
+    Long ownerId;
     @JsonProperty
     LocalDateTime dateTime;
     @JsonProperty
@@ -20,7 +22,8 @@ public class Event {
     @JsonProperty
     String description;
 
-    public Event(LocalDateTime dateTime, String title, String description) {
+    public Event(Long ownerId, LocalDateTime dateTime, String title, String description) {
+        this.ownerId = ownerId;
         this.dateTime = dateTime;
         this.title = title;
         this.description = description;
