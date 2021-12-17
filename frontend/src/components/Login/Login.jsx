@@ -34,8 +34,9 @@ function Login(
         navigate('/calendar');
     }
 
-    function handleLoginFail(exception) {
-        dispatch(handleLoginFailure(exception.error));
+    function handleLoginFail(message) {
+        console.log(`exception = ${message}`);
+        dispatch(handleLoginFailure(message));
     }
 
     const setToastBooleans = useCallback((value) => {

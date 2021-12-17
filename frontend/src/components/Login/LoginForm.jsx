@@ -12,6 +12,8 @@ import {
     setShouldDisableSubmitButton,
     setShouldResetToastTimeout,
 } from '../../modules/home';
+import {loginEndpoint} from "../../data/endPoints";
+import {getSha256} from "../../helpers/helpers";
 
 LoginForm.propTypes = {
     handleLoginSuccess: PropTypes.func,
@@ -30,9 +32,34 @@ function LoginForm({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        mockLogin(username, password).then(handleLoginSuccess, handleLoginFail);
-        dispatch(setShouldResetToastTimeout(true));
-        dispatch(setShouldDisableSubmitButton(true));
+
+        getSha256(password)
+            .then(hashedPassword => {
+                const urlToSend = `
+               ${loginEndpoint.url}?username=${username}&hashedPassword=${hashedPassword}
+        `
+                fetch(urlToSend, {
+                    method: loginEndpoint.method,
+                    headers: loginEndpoint.headers
+                })
+                    .then(response => {
+                        console.table(response);
+                        return response.json();
+                    })
+                    .then(json => {
+                        console.table(json);
+                        if (json.error) return handleLoginFail(json.message);
+
+                        handleLoginSuccess();
+                    })
+                    .catch(handleLoginFail)
+
+                dispatch(setShouldResetToastTimeout(true));
+                dispatch(setShouldDisableSubmitButton(true));
+            })
+            .catch(err => {
+                throw new Error(err);
+            })
     }
 
     return (

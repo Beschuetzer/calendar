@@ -23,6 +23,7 @@ export const getMinDate = () => {
 }
 
 export async function getSha256(message) {
+    console.log(`message = ${message}`);
     // encode as UTF-8
     const msgBuffer = new TextEncoder().encode(message);
     // hash the message
@@ -31,5 +32,6 @@ export async function getSha256(message) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     // convert bytes to hex string
     const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    console.log(hashHex)
     return hashHex;
 }
