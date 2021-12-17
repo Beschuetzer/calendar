@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:9099"
+export const baseUrl = "http://localhost:8080"
 export const endPoints = {
     register: {
         url: `${baseUrl}/register`,

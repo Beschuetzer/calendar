@@ -54,7 +54,11 @@ public class SeedDB {
             Event e2 = new Event(1L, LocalDateTime.now(), "Event 2", "Some description 2");
             Event e3 = new Event(1L, LocalDateTime.now(), "Event 3", "Some description 3");
             Event e4 = new Event(1L, LocalDateTime.now(), "Event 4", "Some description 4");
-            eventRepository.saveAll(List.of(e1,e2,e3,e4));
+            Event e5 = new Event(2L, LocalDateTime.now(), "Event 5", "Some description 5");
+            Event e6 = new Event(3L, LocalDateTime.now(), "Event 6", "Some description 6");
+            Event e7 = new Event(4L, LocalDateTime.now(), "Event 7", "Some description 7");
+            Event e8 = new Event(4L, LocalDateTime.now(), "Event 8", "Some description 8");
+            eventRepository.saveAll(List.of(e1,e2,e3,e4,e5,e6,e7,e8));
 
             Invite i1_2 = new Invite(5L, 1L);
             Invite i1_1 = new Invite(6L, 1L);

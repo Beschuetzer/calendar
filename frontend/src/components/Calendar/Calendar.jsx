@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCurrentUser } from '../../modules/home';
-import { setShouldShowWelcome } from '../../modules/calendar';
+import { setShouldShowWelcome, fetchUserEvents } from '../../modules/calendar';
 import EventsManager from './Events/EventsManager';
-
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
 
 function Calendar() {
     const dispatch = useDispatch();
@@ -46,6 +39,8 @@ function Calendar() {
                 dispatch(setShouldShowWelcome(false))
             }, ALERT_DURATION);
         }
+
+        dispatch(fetchUserEvents(currentUser));
     }, [])
 
     return (

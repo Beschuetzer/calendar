@@ -1,5 +1,5 @@
-import {events} from '../data/dataStructures'
 import {v4} from 'uuid';
+import {endPoints} from "../data/endPoints";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -17,7 +17,7 @@ const RESET_USERS_TO_INVITE = "react_redux/calendar/RESET_USERS_TO_INVITE"
 
 const INITIAL_STATE = {
     shouldShowWelcome: false,
-    events: [...events],
+    events: [],
     filteredEvents: [],
     invites: [],
     eventToEdit: null,
@@ -279,6 +279,21 @@ export function closeInviteModal () {
     return (dispatch, getState) => {
         dispatch(setEventToInviteTo(null));
         dispatch(resetUsersToInvite())
+    }
+}
+
+export function fetchUserEvents(username) {
+    return (dispatch, getState) => {
+        if (!username) return;
+        fetch(`${endPoints.events.url}?username=${username}`, {
+            method: endPoints.events.method
+        })
+            .then(response => response.json())
+            .then(events => {
+                console.table({json: events})
+                dispatch(setEvents(events));
+            })
+            .catch(err => console.log(err))
     }
 }
 
