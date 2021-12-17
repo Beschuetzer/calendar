@@ -10,8 +10,9 @@ export const endPoints = {
     login: {
         url: `${baseUrl}/login`,
         method: "GET",
-        headers: {
-            "content-type": "application/json",
-        }
+    },
+    events: {
+        url: `${baseUrl}/events`,
+        method: "GET",
     }
 }

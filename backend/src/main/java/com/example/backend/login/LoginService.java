@@ -29,7 +29,7 @@ public class LoginService {
         if (optionalCalendarUser.isPresent()) {
             return ResponseEntity.ok(optionalCalendarUser.get());
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find username with that password.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect password or username doesn't exist.");
         }
     }
 }

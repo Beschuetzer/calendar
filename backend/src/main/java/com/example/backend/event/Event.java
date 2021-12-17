@@ -2,16 +2,21 @@ package com.example.backend.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "event_sequence"
+    )
+    @SequenceGenerator(
+            name = "event_sequence",
+            sequenceName = "event_sequence",
+            allocationSize = 1
+    )
     Long id;
     @JsonProperty
     Long ownerId;

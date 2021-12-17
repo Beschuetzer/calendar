@@ -50,10 +50,10 @@ public class SeedDB {
             CalendarUser u4 = new CalendarUser("test4", Helpers.getSha256("test"));
             calendarUserRepository.saveAll(List.of(u1, u2, u3, u4));
 
-            Event e1 = new Event(4L, LocalDateTime.now(), "Event 1", "Some description");
-            Event e2 = new Event(4L, LocalDateTime.now(), "Event 2", "Some description 2");
-            Event e3 = new Event(4L, LocalDateTime.now(), "Event 3", "Some description 3");
-            Event e4 = new Event(4L, LocalDateTime.now(), "Event 4", "Some description 4");
+            Event e1 = new Event(1L, LocalDateTime.now(), "Event 1", "Some description");
+            Event e2 = new Event(1L, LocalDateTime.now(), "Event 2", "Some description 2");
+            Event e3 = new Event(1L, LocalDateTime.now(), "Event 3", "Some description 3");
+            Event e4 = new Event(1L, LocalDateTime.now(), "Event 4", "Some description 4");
             eventRepository.saveAll(List.of(e1,e2,e3,e4));
 
             Invite i1_2 = new Invite(5L, 1L);
