@@ -29,6 +29,14 @@ public class EventController {
     }
 
     @CrossOrigin
+    @PostMapping
+    public ResponseEntity<Event> addEvent(
+            @RequestBody Event eventToAdd
+    ) {
+        return this.service.addEvent(eventToAdd);
+    }
+
+    @CrossOrigin
     @PutMapping()
     public ResponseEntity editEvent(
             @RequestParam Long id,

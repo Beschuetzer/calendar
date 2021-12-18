@@ -13,4 +13,10 @@ public interface EventRepository extends CrudRepository<Event, Long> {
     Optional<Event[]> findAllByUsername(
             @Param("username") String username
     );
+
+    @Query("SELECT e FROM Event e WHERE e.owner = :owner AND e.title = :title")
+    Optional<Event> findByTitleAndOwner(
+            @Param("title") String title,
+            @Param("owner") Long owner
+    );
 }

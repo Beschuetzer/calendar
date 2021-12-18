@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -39,5 +40,14 @@ public class EventService {
 
         repository.save(newEvent);
         return ResponseEntity.ok(optionalEvent.get());
+    }
+
+    public ResponseEntity<Event> addEvent(Event eventToAdd) {
+        //need to see if the event already exists?
+        Optional<Event> optionalEvent = repository.findByTitleAndOwner(eventToAdd.title, eventToAdd.owner);
+        if (optionalEvent.isPresent()) throw new ResponseStatusException(HttpStatus.FOUND, String.format("An event with the title of '%s' already exists.  Try changing the title.", eventToAdd.title));
+
+        eventToAdd.dateTime = LocalDateTime.now();
+        return ResponseEntity.ok(repository.save(eventToAdd));
     }
 }

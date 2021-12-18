@@ -215,14 +215,21 @@ export function saveNewEvent(title, description, date) {
         const state = getState();
         dispatch(setShouldShowEventModal(false))
 
-        const newEventObj = {
-            id: v4(),
-            owner: state.login.currentUser,
-            description,
-            title,
-            date: date,
-        }
-        dispatch(addEvent(newEventObj));
+        // const newEventObj = {
+        //     id: v4(),
+        //     owner: state.login.currentUser,
+        //     description,
+        //     title,
+        //     date: date,
+        // }
+        //send event info as body to backend
+
+        fetch()
+
+        //append the returned event from backend to the store.calendar.events array
+
+
+        // dispatch(addEvent(newEventObj));
     }
 }
 
