@@ -4,7 +4,6 @@ import LoginForm from "./LoginForm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LoginToast from "./LoginToast";
-import { connect } from "react-redux";
 import {
     setShouldResetToastTimeout,
     setShouldShowToast,

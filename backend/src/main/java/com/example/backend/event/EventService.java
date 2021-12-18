@@ -50,4 +50,14 @@ public class EventService {
         eventToAdd.dateTime = LocalDateTime.now();
         return ResponseEntity.ok(repository.save(eventToAdd));
     }
+
+    public ResponseEntity<String> deleteEvent(Long id) {
+        if (id == null || id <= 0) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("'%s' is not a valid event id.", id));
+
+        Optional<Event> optionalEvent = repository.findById(id);
+        if (optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("An event with the id of '%s' was not found.", id));
+
+        repository.deleteById(id);
+        return ResponseEntity.ok(String.format("Event with id of '%s' has been deleted.", id));
+    }
 }
