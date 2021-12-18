@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
 import EventModal from './EventModal'
-import {removeEvent, editEvent, setEventToInviteTo} from '../../../modules/calendar'
+import {editEvent, setEventToInviteTo, deleteEvent} from '../../../modules/calendar'
 
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
@@ -32,7 +32,7 @@ function Event({
 
     const handleDeleteClick = (e) => {
         e.stopPropagation();
-        dispatch(removeEvent(event.id));
+        dispatch(deleteEvent(event.id));
     }
 
     const handleEditClick = (e) => {

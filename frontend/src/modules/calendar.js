@@ -1,5 +1,6 @@
 import {v4} from 'uuid';
 import {endPoints, getEndPoint} from "../data/endPoints";
+import {setShouldShowToast, setToastText} from "./home";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -330,8 +331,34 @@ export function fetchUserEvents(username) {
     }
 }
 
+export function deleteEvent(id) {
+    return (dispatch, getState) => {
+        if (id <= 0) return;
+
+        const state = getState();
+
+        const deleteEventEndpoint = getEndPoint("deleteEvent", id, state.login.currentUserId);
+        fetch(deleteEventEndpoint.url, {
+            method: deleteEventEndpoint.method,
+        })
+            .then(response => response.json())
+            .then(successMessage => {
+                console.table({successMessage})
+                dispatch(setShouldShowToast(true));
+                dispatch(setToastText(successMessage));
+            })
+            .catch(error => {
+                dispatch(setShouldShowToast(true));
+                dispatch(setToastText(error));
+            })
+
+        dispatch(removeEvent(id));
+    }
+}
+
 //endregion
 
+//region Helpers
 function putEvent(eventToModify) {
     const editEventsEndpoint = getEndPoint("editEvent", eventToModify.id,  eventToModify.owner);
     console.table({editEventsEndpoint, eventToModify})
@@ -348,3 +375,6 @@ function putEvent(eventToModify) {
         })
         .catch(e => console.log(e))
 }
+//endregion
+
+

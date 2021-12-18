@@ -53,9 +53,10 @@ public class EventController {
     @CrossOrigin
     @DeleteMapping
     public ResponseEntity<String> deleteEvent(
-        @RequestParam Long id
+        @RequestParam Long id,
+        @RequestParam Long ownerId
     ) {
-        return this.service. deleteEvent(id);
+        return this.service.deleteEvent(id, ownerId);
     }
 }
 

@@ -28,6 +28,10 @@ export function getEndPoint(keyToReturn, eventId, ownerId) {
                 "content-type": "application/json",
             }
         },
+        deleteEvent: {
+            url: `${baseUrl}/events?id=${eventId}&ownerId=${ownerId}`,
+            method: "DELETE",
+        },
     }
     return endPoints[keyToReturn];
 }

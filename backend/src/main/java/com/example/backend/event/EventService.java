@@ -43,7 +43,7 @@ public class EventService {
     }
 
     public ResponseEntity<Event> addEvent(Event eventToAdd) {
-        //need to see if the event already exists?
+        //TODO: need to see if the event already exists?
         Optional<Event> optionalEvent = repository.findByTitleAndOwner(eventToAdd.title, eventToAdd.owner);
         if (optionalEvent.isPresent()) throw new ResponseStatusException(HttpStatus.FOUND, String.format("An event with the title of '%s' already exists.  Try changing the title.", eventToAdd.title));
 
@@ -51,11 +51,12 @@ public class EventService {
         return ResponseEntity.ok(repository.save(eventToAdd));
     }
 
-    public ResponseEntity<String> deleteEvent(Long id) {
+    public ResponseEntity<String> deleteEvent(Long id, Long ownerId) {
         if (id == null || id <= 0) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("'%s' is not a valid event id.", id));
 
         Optional<Event> optionalEvent = repository.findById(id);
         if (optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("An event with the id of '%s' was not found.", id));
+        if (!optionalEvent.get().owner.equals(ownerId)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("You do not have permission to do that."));
 
         repository.deleteById(id);
         return ResponseEntity.ok(String.format("Event with id of '%s' has been deleted.", id));
