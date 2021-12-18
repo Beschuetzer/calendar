@@ -1,5 +1,5 @@
 import {v4} from 'uuid';
-import {endPoints} from "../data/endPoints";
+import {endPoints, getEndPoint} from "../data/endPoints";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -245,22 +245,30 @@ export function updateNewEvent(newEventObj) {
         dispatch(setHasLoadedEventToEdit(false))
         dispatch(setShouldShowEventModal(false));
 
-        // //need to get the newEvents without the one that has id and add the new one
-        // const newEvents = state.calendar.events.filter(event => event.id !== newEventObj.id)
-        // newEvents.push(newEventObj);
-
         //iterate throught each event in state and add unchanged ones
-        const newEvents = [];
-        for (let i = 0; i < state.calendar.events.length; i++) {
-            const eventToCheck = state.calendar.events[i];
-            if (eventToCheck.id == newEventObj.id) {
-                newEvents.push(newEventObj);
-                continue;
+        // const eventsCopy = [];
+        // for (let i = 0; i < state.calendar.events.length; i++) {
+        //     const eventToCheck = state.calendar.events[i];
+        //     if (eventToCheck.id == newEventObj.id) {
+        //         eventsCopy.push(newEventObj);
+        //         continue;
+        //     }
+        //     eventsCopy.push(eventToCheck);
+        // }
+        // console.table({eventsCopy})
+
+        let indexToUse = -1;
+        const eventsCopy = [...state.calendar.events];
+        for (let i = 0; i < eventsCopy.length; i++) {
+            const eventToCheck = eventsCopy[i];
+            if (eventToCheck.id === newEventObj.id) {
+                indexToUse = i;
+                break;
             }
-            newEvents.push(eventToCheck);
         }
-        console.table({newEvents})
-        dispatch(setEvents(newEvents))
+        eventsCopy[indexToUse] = newEventObj;
+        dispatch(setEvents(eventsCopy))
+        putEvent(newEventObj);
     }
 }
 
@@ -286,7 +294,7 @@ export function applyEventFilter(startDate, endDate) {
     }
 }
 
-export function closeInviteModal () {
+export function closeInviteModal() {
     return (dispatch, getState) => {
         dispatch(setEventToInviteTo(null));
         dispatch(resetUsersToInvite())
@@ -296,8 +304,10 @@ export function closeInviteModal () {
 export function fetchUserEvents(username) {
     return (dispatch, getState) => {
         if (!username) return;
-        fetch(`${endPoints.events.url}?username=${username}`, {
-            method: endPoints.events.method
+        const eventsEndpoint = getEndPoint("events");
+
+        fetch(`${eventsEndpoint.url}?username=${username}`, {
+            method: eventsEndpoint.method
         })
             .then(response => response.json())
             .then(events => {
@@ -309,3 +319,20 @@ export function fetchUserEvents(username) {
 }
 
 //endregion
+
+function putEvent(eventToModify) {
+    const editEventsEndpoint = getEndPoint("editEvent", eventToModify.id,  eventToModify.owner);
+    console.table({editEventsEndpoint, eventToModify})
+    fetch(editEventsEndpoint.url, {
+        method: editEventsEndpoint.method,
+        body: JSON.stringify(eventToModify),
+        headers: {
+            "content-type": "application/json",
+        }
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
+        .catch(e => console.log(e))
+}

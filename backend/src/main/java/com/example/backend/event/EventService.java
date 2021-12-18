@@ -30,6 +30,8 @@ public class EventService {
     }
 
     public ResponseEntity<Event> editEvent(Long id, Long ownerID, Event newEvent) {
+        System.out.println("ownerID = " + ownerID);
+        System.out.println("newEvent = " + newEvent.toString());
         Optional<Event> optionalEvent = repository.findById(id);
 
         if(optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id of '%s' was not found.");

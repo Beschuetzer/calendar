@@ -1,7 +1,7 @@
 import {mockRegister} from '../mock/mock';
 import { setCurrentUser} from '../modules/home'
 import { setShouldShowWelcome } from '../modules/calendar'
-import {endPoints} from "../data/endPoints";
+import {endPoints, getEndPoint} from "../data/endPoints";
 import {getSha256} from "../helpers/helpers";
 
 const ADD_USER = 'react_redux/register/ADD_USER';
@@ -55,11 +55,13 @@ export function executeAddUser(userObj, navigate) {
         if (!userObj || !userObj.username || !userObj.password) return;
         console.table(userObj)
 
+        const registerEndpoint = getEndPoint("register");
+
         getSha256(userObj.password)
             .then(hashedPassword => {
-                fetch(endPoints.register.url, {
-                    headers: endPoints.register.headers,
-                    method: endPoints.register.method,
+                fetch(registerEndpoint.url, {
+                    headers: registerEndpoint.headers,
+                    method: registerEndpoint.method,
                     body: JSON.stringify({...userObj, hashedPassword}),
                 })
                     .then(response => response.json())

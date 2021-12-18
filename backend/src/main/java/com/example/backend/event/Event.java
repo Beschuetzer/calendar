@@ -53,4 +53,15 @@ public class Event {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", ownerId=" + ownerId +
+                ", dateTime=" + dateTime +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
