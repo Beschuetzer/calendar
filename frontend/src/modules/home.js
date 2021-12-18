@@ -10,6 +10,7 @@ const SET_TOAST_TIME = "react_redux/home/SET_TOAST_TIME";
 const SET_TOAST_MESSAGE = "react_redux/home/SET_TOAST_MESSAGE";
 const SET_SHOULD_DISABLE_SUBMIT_BUTTON = "react_redux/home/SET_SHOULD_DISABLE_SUBMIT_BUTTON";
 const SET_CURRENT_USER = "react_redux/home/SET_CURRENT_USER";
+const SET_CURRENT_USER_ID = "react_redux/home/SET_CURRENT_USER_ID";
 const RESET_STATE = "react_redux/home/RESET_STATE";
 //endregion
 
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
     shouldResetToastTimeout: false,
     shouldDisableSubmitButton: false,
     currentUser: "",
+    currentUserId: -1,
 }
 
 //region Reducer
@@ -73,10 +75,15 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload,
             }
-            case RESET_STATE:
-                return {
-                    ...INITIAL_STATE,
-                }
+        case SET_CURRENT_USER_ID:
+            return {
+                ...state,
+                currentUserId: action.payload,
+            }
+        case RESET_STATE:
+            return {
+                ...INITIAL_STATE,
+            }
         default:
             return state;
     }
@@ -139,7 +146,12 @@ export const setCurrentUser = (username) => {
         payload: username,
     }
 }
-
+export const setCurrentUserId = (id) => {
+    return {
+        type: SET_CURRENT_USER_ID,
+        payload: id,
+    }
+}
 export const resetState = () => {
     return {
         type: RESET_STATE,
@@ -148,8 +160,9 @@ export const resetState = () => {
 //endregion
 
 //region Side Effects
-export function handleLoginSuccess(username) {
+export function handleLoginSuccess(id, username) {
     return (dispatch, getState) => {
+
         dispatch(setToastHeader(""));
         // dispatch(setToastBackground("success"));
         // dispatch(setToastText("light"));
@@ -157,6 +170,7 @@ export function handleLoginSuccess(username) {
         dispatch(setShouldShowToast(false));
         dispatch(setShouldDisableSubmitButton(false));
         dispatch(setCurrentUser(username))
+        dispatch(setCurrentUserId(id))
         dispatch(setShouldShowWelcome(true));
     }
 }
@@ -178,6 +192,7 @@ export function logout() {
         dispatch(resetState());
     }
 }
+
 //endregion
 
 export default reducer;

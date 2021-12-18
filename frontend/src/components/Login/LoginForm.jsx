@@ -47,7 +47,7 @@ function LoginForm({
                     })
                     .then(json => {
                         if (json.error) return handleLoginFail(json.message);
-                        handleLoginSuccess(json.username);
+                        handleLoginSuccess(json.id, json.username);
                     })
                     .catch(msg => {
                         handleLoginFail(msg)

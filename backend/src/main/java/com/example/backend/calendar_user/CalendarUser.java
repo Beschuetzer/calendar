@@ -11,6 +11,7 @@ import javax.persistence.Id;
 public class CalendarUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonProperty
     Long id;
     @JsonProperty
     String username;

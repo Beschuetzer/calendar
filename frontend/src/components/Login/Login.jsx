@@ -29,8 +29,9 @@ function Login(
     const SHOW_TOAST_DURATION = 3000;
     const showToastFadeTimeoutLocal = useRef(-1);
 
-    function redirectToCalendar(username) {
-        dispatch(handleLoginSuccess(username));
+    function redirectToCalendar(id,username) {
+        console.log("redirecting")
+        dispatch(handleLoginSuccess(id,username));
         navigate('/calendar');
     }
 

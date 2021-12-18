@@ -20,7 +20,14 @@ export function getEndPoint(keyToReturn, eventId, ownerId) {
         editEvent: {
             url: `${baseUrl}/events?id=${eventId}&ownerId=${ownerId}`,
             method: "PUT",
-        }
+        },
+        addEvent: {
+            url: `${baseUrl}/events`,
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            }
+        },
     }
     return endPoints[keyToReturn];
 }
