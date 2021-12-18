@@ -35,7 +35,7 @@ public class EventService {
         Optional<Event> optionalEvent = repository.findById(id);
 
         if(optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id of '%s' was not found.");
-        if (optionalEvent.get().ownerId != ownerID) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not allowed to modify that event!");
+        if (optionalEvent.get().owner != ownerID) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not allowed to modify that event!");
 
         repository.save(newEvent);
         return ResponseEntity.ok(optionalEvent.get());

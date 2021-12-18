@@ -47,7 +47,7 @@ function EventModal({}) {
         resetState();
 
         if (eventToEdit) {
-            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.ownerId, title, description, dateTime}));
+            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.owner, title, description, dateTime}));
         }
 
         return dispatch(saveNewEvent(title, description, dateTime));

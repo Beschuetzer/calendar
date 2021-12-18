@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface EventRepository extends CrudRepository<Event, Long> {
-    @Query("SELECT e FROM Event e INNER JOIN CalendarUser u ON e.ownerId = u.id WHERE u.username = :username")
+    @Query("SELECT e FROM Event e INNER JOIN CalendarUser u ON e.owner = u.id WHERE u.username = :username")
     Optional<Event[]> findAllByUsername(
             @Param("username") String username
     );

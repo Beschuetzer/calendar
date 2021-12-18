@@ -19,7 +19,7 @@ public class Event {
     )
     Long id;
     @JsonProperty
-    Long ownerId;
+    Long owner;
     @JsonProperty
     LocalDateTime dateTime;
     @JsonProperty
@@ -27,8 +27,8 @@ public class Event {
     @JsonProperty
     String description;
 
-    public Event(Long ownerId, LocalDateTime dateTime, String title, String description) {
-        this.ownerId = ownerId;
+    public Event(Long owner, LocalDateTime dateTime, String title, String description) {
+        this.owner = owner;
         this.dateTime = dateTime;
         this.title = title;
         this.description = description;
@@ -58,7 +58,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "id=" + id +
-                ", ownerId=" + ownerId +
+                ", ownerId=" + owner +
                 ", dateTime=" + dateTime +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
