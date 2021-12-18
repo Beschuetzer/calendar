@@ -12,8 +12,6 @@ export const getBodyMsg = (originalMsg) => {
             fullMessage = fullMessage.replace(stringInParenthesisToBold, `<span class="fw-bold">${stringInParenthesisToBold}</span>`);
         }
     }
-
-
     return `<span>${fullMessage}</span>`
 }
 
@@ -38,6 +36,9 @@ export async function getSha256(message) {
 }
 
 export function getDateTimeLocalString(javaLocalDateTimeString) {
+    if (!javaLocalDateTimeString) return javaLocalDateTimeString;
     const indexOfDot = javaLocalDateTimeString.indexOf('.');
+    
+    if (indexOfDot === -1) return javaLocalDateTimeString;
     return javaLocalDateTimeString.substring(0, indexOfDot);
 }

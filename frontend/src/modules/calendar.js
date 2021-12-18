@@ -241,7 +241,7 @@ export function updateNewEvent(newEventObj) {
     return (dispatch, getState) => {
         const state = getState();
         console.log("in update new Event")
-        console.table(newEventObj, state)
+        console.table({newEventObj, state})
         dispatch(setHasLoadedEventToEdit(false))
         dispatch(setShouldShowEventModal(false));
 
@@ -251,13 +251,14 @@ export function updateNewEvent(newEventObj) {
 
         //iterate throught each event in state and add unchanged ones
         const newEvents = [];
-        for (let i = 0; i < state.calendar.events; i++) {
+        for (let i = 0; i < state.calendar.events.length; i++) {
             const eventToCheck = state.calendar.events[i];
-            console.table({eventToCheck})
-            if (eventToCheck.id == newEventObj.id) newEvents.push(newEventObj);
+            if (eventToCheck.id == newEventObj.id) {
+                newEvents.push(newEventObj);
+                continue;
+            }
             newEvents.push(eventToCheck);
         }
-
         console.table({newEvents})
         dispatch(setEvents(newEvents))
     }

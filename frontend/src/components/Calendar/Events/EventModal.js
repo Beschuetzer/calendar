@@ -15,12 +15,11 @@ function EventModal({}) {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [date, setDate] = useState(Date.now());
+    const [dateTime, setDateTime] = useState(Date.now());
 
     useEffect(() => {
-        console.table({date})
         if (eventToEdit) {
-            setDate(getDateTimeLocalString(eventToEdit.dateTime));
+            setDateTime(getDateTimeLocalString(eventToEdit.dateTime));
             setDescription(eventToEdit.description);
             setTitle(eventToEdit.title);
         } else {
@@ -44,19 +43,19 @@ function EventModal({}) {
     }
 
     const handleSave = (e) => {
-        if (!title || !description | !date) return;
+        if (!title || !description | !dateTime) return;
         resetState();
 
         if (eventToEdit) {
-            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.ownerId, title, description, date}));
+            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.ownerId, title, description, dateTime}));
         }
 
-        return dispatch(saveNewEvent(title, description, date));
+        return dispatch(saveNewEvent(title, description, dateTime));
     }
 
     const resetState = () => {
         if (!eventToEdit) {
-            setDate('');
+            setDateTime('');
             setDescription('');
             setTitle('');
         }
@@ -85,7 +84,7 @@ function EventModal({}) {
                         <Form.Label>Date:&nbsp;</Form.Label>
                         <Form.Control
                             min={getMinDate()}
-                            type={"datetime-local"} value={date} onChange={(e) => setDate(e.target.value)}/>
+                            type={"datetime-local"} value={dateTime} onChange={(e) => setDateTime(e.target.value)}/>
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -96,7 +95,7 @@ function EventModal({}) {
                 <Button
                     variant="primary"
                     onClick={handleSave}
-                    disabled={!title || !description | !date}
+                    disabled={!title || !description | !dateTime}
                 >
                     Save
                 </Button>
