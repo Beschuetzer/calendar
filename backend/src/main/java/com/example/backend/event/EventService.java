@@ -45,7 +45,7 @@ public class EventService {
     public ResponseEntity<Event> addEvent(Event eventToAdd) {
         //TODO: need to see if the event already exists?
         Optional<Event> optionalEvent = repository.findByTitleAndOwner(eventToAdd.title, eventToAdd.owner);
-        if (optionalEvent.isPresent()) throw new ResponseStatusException(HttpStatus.FOUND, String.format("An event with the title of '%s' already exists.  Try changing the title.", eventToAdd.title));
+        if (optionalEvent.isPresent()) throw new ResponseStatusException(HttpStatus.FOUND, String.format("An event with the title of '%s' already exists for this CalendarUser.  Try changing the title.", eventToAdd.title));
 
         eventToAdd.dateTime = LocalDateTime.now();
         return ResponseEntity.ok(repository.save(eventToAdd));
