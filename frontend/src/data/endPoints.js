@@ -36,6 +36,10 @@ export function getEndPoint(keyToReturn, param1, param2) {
             url: `${baseUrl}/users?query=${param1}`,
             method: "GET",
         },
+        addInvitesToEvent: {
+            url: `${baseUrl}/users?eventId=${param1}`,
+            method: "POST",
+        },
     }
     return endPoints[keyToReturn];
 }

@@ -1,9 +1,8 @@
 package com.example.backend.invite;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("invites")
@@ -18,5 +17,14 @@ public class InviteController {
     @GetMapping
     public Iterable<Invite> getAllInvites() {
         return this.service.getAllInvites();
+    }
+
+    @CrossOrigin
+    @PostMapping
+    public ResponseEntity<String> addInvites(
+            @RequestParam("eventId") Long eventId,
+            @RequestBody Long[] userIds
+    ) {
+        return this.service.addInvites(eventId, userIds);
     }
 }

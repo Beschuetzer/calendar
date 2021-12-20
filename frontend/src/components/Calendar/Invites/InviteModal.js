@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
 import FindUsers from './FindUsers'
-import {setEventToInviteTo, closeInviteModal} from '../../../modules/calendar'
+import {createInvites, closeInviteModal} from '../../../modules/calendar'
 
 function InviteModal(props) {
     const dispatch = useDispatch();
@@ -17,6 +17,7 @@ function InviteModal(props) {
     }
 
     const handleSave = (e) => {
+        dispatch(createInvites());
     }
     
     return (

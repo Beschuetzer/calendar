@@ -1,5 +1,5 @@
 import {v4} from 'uuid';
-import {endPoints, getEndPoint} from "../data/endPoints";
+import {baseUrl, endPoints, getEndPoint} from "../data/endPoints";
 import {setShouldShowToast, setToastText} from "./home";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
@@ -374,6 +374,19 @@ function putEvent(eventToModify) {
             console.log(json);
         })
         .catch(e => console.log(e))
+}
+
+export function createInvites() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const eventToInviteTo = state.calendar.eventToInviteTo;
+        const usersToInvite = state.calendar.usersToInvite;
+
+        console.table({eventToInviteTo, usersToInvite})
+
+        // url: `${baseUrl}/users?eventId=${param1}`,
+
+    }
 }
 //endregion
 
