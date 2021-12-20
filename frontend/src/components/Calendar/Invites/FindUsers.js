@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -12,11 +12,14 @@ import {mockGetMatchingUsernames} from '../../../mock/mock';
 import {addUserToInvite, removeUserToInvite} from '../../../modules/calendar';
 
 function FindUsers(props) {
+    const DEBOUNCE_DELAY = 500;
+
     const dispatch = useDispatch();
     const usersToInvite = useSelector(state => state.calendar.usersToInvite)
     const [usernameToFind, setUsernameToFind] = useState('');
     const [usernamesOfFoundUsers, setUsernamesOfFoundUsers] = useState([]);
     const [foundUsers, setFoundUsers] = useState([]);
+    const debounceInputTimeout = useRef(-1);
 
     const renderFoundUsers = (usernames) => {
         return usernames.map((username, index) => {
@@ -55,19 +58,23 @@ function FindUsers(props) {
         return dispatch(addUserToInvite(user));
     }
 
-    useEffect(() => {
-        const handlePromiseSuccess = (matchesFound) => {
-            console.log(matchesFound)
-            if (!matchesFound) return;
-            setUsernamesOfFoundUsers(matchesFound);
+    const debounceInput = () => {
+        if (usernameToFind) {
+            debounceInputTimeout.current = setTimeout(() => {
+                fetchMatchingNames(1);
+            }, DEBOUNCE_DELAY);
         }
 
-        if (!usernameToFind) return;
-        mockGetMatchingUsernames(usernameToFind)
-            .then(handlePromiseSuccess)
-            .catch(error => console.log(error));
+        return (() => {
+            clearTimeout(debounceInputTimeout.current);
+        })
+    }
+    
+    const fetchMatchingNames = (pageNumber) => {
+        console.table({pageNumber, usernameToFind})
+    }
 
-    }, [usernameToFind]);
+    useEffect(debounceInput, [usernameToFind]);
 
     useEffect(() => {
         setFoundUsers(renderFoundUsers(usernamesOfFoundUsers))
