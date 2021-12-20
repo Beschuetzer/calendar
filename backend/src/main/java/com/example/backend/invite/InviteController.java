@@ -23,8 +23,8 @@ public class InviteController {
     @PostMapping
     public ResponseEntity<String> addInvites(
             @RequestParam("eventId") Long eventId,
-            @RequestBody Long[] userIds
+            @RequestBody String[] usernames
     ) {
-        return this.service.addInvites(eventId, userIds);
+        return this.service.addInvites(eventId, usernames);
     }
 }

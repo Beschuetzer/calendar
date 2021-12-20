@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface InviteRepository extends CrudRepository<Invite, Long> {
-    @Query("SELECT i FROM Invite i WHERE i.eventId = :eventId")
-    Optional<Iterable<Invite>> findInvitesByEventId(
+    @Query("SELECT new com.example.backend.invite.InviteWithUsername(i.eventId, i.inviteeId, u.username) FROM Invite i INNER JOIN CalendarUser u ON u.id = i.inviteeId WHERE i.eventId = :eventId")
+    Optional<Iterable<InviteWithUsername>> findInvitesByEventId(
             @Param("eventId") Long eventId
     );
 }
