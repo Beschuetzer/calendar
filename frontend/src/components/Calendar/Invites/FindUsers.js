@@ -81,6 +81,7 @@ function FindUsers(props) {
             .then(response => response.json())
             .then(json => {
                 console.table({json})
+                dispatch(setUsernamesOfFoundUsers(json.map(usernameFound => usernameFound.username)));
             })
             .catch(err => console.log(err))
     }
