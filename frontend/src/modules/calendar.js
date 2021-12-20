@@ -296,9 +296,9 @@ export function applyEventFilter(startDate, endDate) {
     return (dispatch, getState) => {
         const state = getState();
         const filteredEvents = state.calendar.events.filter(event => {
-            console.table({startDate, endDate, eventDate: event.date})
+            console.table({startDate, endDate, eventDate: event.dateTime})
             if (!startDate || !endDate) return true;
-            if (event.date >= startDate && event.date <= endDate) return true;
+            if (event.dateTime >= startDate && event.dateTime <= endDate) return true;
             return false;
         })
 
