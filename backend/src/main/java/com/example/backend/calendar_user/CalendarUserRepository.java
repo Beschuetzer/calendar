@@ -9,6 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CalendarUserRepository extends CrudRepository<CalendarUser, Long> {
+    @Query("SELECT u FROM CalendarUser u")
+    Optional<CalendarUser[]> findAllUsers();
+
     @Query("SELECT u FROM CalendarUser u WHERE u.username = :username AND u.hashedPassword = :hashedPassword")
     Optional<CalendarUser> findCalendarUserByCredentials(
             @Param("username") String username,

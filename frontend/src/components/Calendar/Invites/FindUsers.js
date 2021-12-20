@@ -10,6 +10,7 @@ import PersonToInvite from './PersonToInvite'
 import {registeredUsers} from '../../../data/dataStructures'
 import {mockGetMatchingUsernames} from '../../../mock/mock';
 import {addUserToInvite, removeUserToInvite} from '../../../modules/calendar';
+import {getEndPoint} from "../../../data/endPoints";
 
 function FindUsers(props) {
     const DEBOUNCE_DELAY = 500;
@@ -73,6 +74,15 @@ function FindUsers(props) {
     const fetchMatchingNames = (pageNumber) => {
         console.table({pageNumber, usernameToFind})
         //TODO: need to implement actual fetch call here to /findUsers with a query param being usernameToFind
+        const getMatchingUsersEndpoint = getEndPoint("getMatchingUsers", usernameToFind);
+        fetch(getMatchingUsersEndpoint.url, {
+            method: getMatchingUsersEndpoint.method
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.table({json})
+            })
+            .catch(err => console.log(err))
     }
 
     useEffect(debounceInput, [usernameToFind]);

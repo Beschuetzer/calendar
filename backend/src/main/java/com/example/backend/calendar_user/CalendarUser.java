@@ -1,5 +1,6 @@
 package com.example.backend.calendar_user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ public class CalendarUser {
     Long id;
     @JsonProperty
     String username;
-    @JsonProperty
+    @JsonIgnore
     String hashedPassword;
 
     public CalendarUser() {

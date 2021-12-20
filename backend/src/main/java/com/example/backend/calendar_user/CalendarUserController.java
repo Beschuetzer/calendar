@@ -3,10 +3,7 @@ package com.example.backend.calendar_user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("users")
@@ -18,8 +15,9 @@ public class CalendarUserController {
         this.service = userService;
     }
 
+    @CrossOrigin
     @GetMapping
-    public ResponseEntity<Iterable<CalendarUser>> getUsers(@Nullable @RequestParam String query) {
+    public ResponseEntity<Iterable<CalendarUserUsernameOnly>> getUsers(@Nullable @RequestParam String query) {
         if (query != null) return this.service.getMatchingUsers(query);
         return this.service.getUsers();
     }

@@ -1,5 +1,5 @@
 export const baseUrl = "http://localhost:8080"
-export function getEndPoint(keyToReturn, eventId, ownerId) {
+export function getEndPoint(keyToReturn, param1, param2) {
     if (!keyToReturn ) return null;
     const endPoints = {
         register: {
@@ -18,7 +18,7 @@ export function getEndPoint(keyToReturn, eventId, ownerId) {
             method: "GET",
         },
         editEvent: {
-            url: `${baseUrl}/events?id=${eventId}&ownerId=${ownerId}`,
+            url: `${baseUrl}/events?id=${param1}&ownerId=${param2}`,
             method: "PUT",
         },
         addEvent: {
@@ -29,8 +29,12 @@ export function getEndPoint(keyToReturn, eventId, ownerId) {
             }
         },
         deleteEvent: {
-            url: `${baseUrl}/events?id=${eventId}&ownerId=${ownerId}`,
+            url: `${baseUrl}/events?id=${param1}&ownerId=${param2}`,
             method: "DELETE",
+        },
+        getMatchingUsers: {
+            url: `${baseUrl}/users?query=${param1}`,
+            method: "GET",
         },
     }
     return endPoints[keyToReturn];

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,15 +23,32 @@ public class CalendarUserService {
         this.repository = calendarUserRepository;
     }
 
-    public ResponseEntity<Iterable<CalendarUser>> getUsers() {
-        return ResponseEntity.ok(repository.findAll());
+    public ResponseEntity<Iterable<CalendarUserUsernameOnly>> getUsers() {
+        Optional<CalendarUser[]> optionalCalendarUsers = repository.findAllUsers();
+
+        if(optionalCalendarUsers.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Something went wrong!");
+
+        List<CalendarUserUsernameOnly> toReturn = new ArrayList<>();
+        for(CalendarUser calendarUser : optionalCalendarUsers.get()) {
+            toReturn.add(new CalendarUserUsernameOnly(calendarUser.getUsername()));
+        }
+
+        return ResponseEntity.ok(toReturn);
     }
 
-    public ResponseEntity<Iterable<CalendarUser>> getMatchingUsers(String query) {
-        logger.info(String.format("query = %s", query));
-        Optional<Iterable<CalendarUser>> optionalCalendarUser = repository.findMatchingUsers(query);
+    public ResponseEntity<Iterable<CalendarUserUsernameOnly>> getMatchingUsers(String query) {
+        List<CalendarUserUsernameOnly> toReturn = new ArrayList<>();
+        if (query.equals("")) return ResponseEntity.ok(toReturn);
 
-        if (optionalCalendarUser.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No matches were found");
-        return ResponseEntity.ok(optionalCalendarUser.get());
+        Optional<Iterable<CalendarUser>> optionalCalendarUsers = repository.findMatchingUsers(query);
+
+        if (optionalCalendarUsers.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No matches were found");
+
+        for(CalendarUser calendarUser : optionalCalendarUsers.get()) {
+            toReturn.add(new CalendarUserUsernameOnly(calendarUser.getUsername()));
+        }
+
+        return ResponseEntity.ok(toReturn);
     }
 }
