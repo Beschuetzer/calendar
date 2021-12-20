@@ -37,4 +37,13 @@ public class Invite {
     public Long getInviteeId() {
         return inviteeId;
     }
+
+    @Override
+    public String toString() {
+        return "Invite{" +
+                "id=" + id +
+                ", eventId=" + eventId +
+                ", inviteeId=" + inviteeId +
+                '}';
+    }
 }

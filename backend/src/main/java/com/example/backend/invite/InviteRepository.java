@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface InviteRepository extends CrudRepository<Invite, Long> {
     @Query("SELECT i FROM Invite i WHERE i.eventId = :eventId")
-    Optional<Invite[]> findInviteByEventId(
+    Optional<Iterable<Invite>> findInvitesByEventId(
             @Param("eventId") Long eventId
     );
 }

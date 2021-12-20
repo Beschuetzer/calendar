@@ -31,30 +31,30 @@ public class InviteService {
     }
 
     public ResponseEntity<String> addInvites(Long eventId, Long[] userIds) {
-        //TODO: Check if event exists
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(optionalEvent.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("No event found with the id of %s.", eventId));
 
-        logger.info(String.format("eventId = %s", eventId));
-        //TODO: Check if invite already exists for each userId
-        //get all invites by eventId
-        Optional<Invite[]> optionalInvites = repository.findInviteByEventId(eventId);
+        Optional<Iterable<Invite>> optionalInvites = repository.findInvitesByEventId(eventId);
 
-        List<Invite> invites = new ArrayList<>();
+        List<Invite> newInvites = new ArrayList<>();
 
-        if (optionalInvites.isEmpty()) invites = getInvites(eventId, userIds);
-
-
-        repository.saveAll(invites);
-        return ResponseEntity.ok(String.format("Successfully added invitees to the event with id of %s", eventId));
-    }
-
-    private List<Invite> getInvites(Long eventId, Long[] userIds) {
-        List<Invite> invites = new ArrayList<>();
         for (Long userId : userIds) {
-            logger.info(String.format("userIds.length = %s", userId));
-            invites.add(new Invite(eventId, userId));
+
+            if (optionalInvites.isPresent()) {
+                Boolean shouldAdd = true;
+                for (Invite inviteToCheck : optionalInvites.get()) {
+                    if (inviteToCheck.inviteeId.equals(userId)) {
+                        shouldAdd = false;
+                        break;
+                    }
+                }
+
+                if (shouldAdd) newInvites.add(new Invite(eventId, userId));
+            }
+            else newInvites.add(new Invite(eventId, userId));
         }
-        return invites;
+
+        repository.saveAll(newInvites);
+        return ResponseEntity.ok(String.format("Successfully added invitees to the event with id of %s", eventId));
     }
 }
