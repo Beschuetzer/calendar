@@ -19,4 +19,9 @@ public interface CalendarUserRepository extends CrudRepository<CalendarUser, Lon
     Optional<CalendarUser> findCalendarUserByUsername(
             @Param("username") String username
     );
+
+    @Query("SELECT u FROM CalendarUser u WHERE u.username LIKE CONCAT('%',:query,'%')")
+    Optional<Iterable<CalendarUser>> findMatchingUsers(
+            @Param("query") String query
+    );
 }
