@@ -1,6 +1,5 @@
 package com.example.backend.login;
 
-import com.example.backend.calendar_user.CalendarUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,10 @@ public class LoginController {
 
     @CrossOrigin
     @GetMapping
-    public ResponseEntity<CalendarUser> getUserByCredentials(
+    public ResponseEntity<LoginResponse> loginUser(
             @Nullable @RequestParam("username") String username,
             @Nullable @RequestParam("hashedPassword") String hashedPassword
     ) {
-        return this.service.getUserByCredentials(username, hashedPassword);
+        return this.service.loginUser(username, hashedPassword);
     }
 }

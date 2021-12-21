@@ -1,6 +1,7 @@
 export const baseUrl = "http://localhost:8080"
+
 export function getEndPoint(keyToReturn, param1, param2) {
-    if (!keyToReturn ) return null;
+    if (!keyToReturn) return null;
     const endPoints = {
         register: {
             url: `${baseUrl}/register`,
@@ -35,6 +36,10 @@ export function getEndPoint(keyToReturn, param1, param2) {
         getMatchingUsers: {
             url: `${baseUrl}/users?query=${param1}`,
             method: "GET",
+        },
+        getInvites: {
+            url: `${baseUrl}/invites?username=${param1}`,
+            method: "GED",
         },
         addInvites: {
             url: `${baseUrl}/invites?eventId=${param1}`,

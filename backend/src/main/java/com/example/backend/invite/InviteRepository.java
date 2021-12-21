@@ -13,4 +13,9 @@ public interface InviteRepository extends CrudRepository<Invite, Long> {
     Optional<Iterable<InviteWithUsername>> findInvitesByEventId(
             @Param("eventId") Long eventId
     );
+
+    @Query("SELECT i FROM Invite i INNER JOIN CalendarUser u ON u.id = i.inviteeId WHERE u.username = :username")
+    Optional<Invite[]>findInvitesByUsername(
+            @Param("username") String username
+    );
 }

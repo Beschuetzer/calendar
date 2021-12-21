@@ -8,6 +8,7 @@ import {
     setToastMessage,
     setToastText
 } from "./home";
+import {invites} from "../data/dataStructures";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -321,22 +322,41 @@ export function closeInviteModal() {
     }
 }
 
-export function fetchUserEvents(username) {
-    return (dispatch, getState) => {
-        if (!username) return;
-        const eventsEndpoint = getEndPoint("events");
+// export function fetchUserEvents(username) {
+//     return (dispatch, getState) => {
+//         if (!username) return;
+//         const eventsEndpoint = getEndPoint("events");
+//
+//         fetch(`${eventsEndpoint.url}?username=${username}`, {
+//             method: eventsEndpoint.method
+//         })
+//             .then(response => response.json())
+//             .then(events => {
+//                 console.table({json: events})
+//                 dispatch(setEvents(events));
+//             })
+//             .catch(err => console.log(err))
+//     }
+// }
 
-        fetch(`${eventsEndpoint.url}?username=${username}`, {
-            method: eventsEndpoint.method
-        })
-            .then(response => response.json())
-            .then(events => {
-                console.table({json: events})
-                dispatch(setEvents(events));
-            })
-            .catch(err => console.log(err))
-    }
-}
+// export function fetchInvites(username) {
+//     return (dispatch, getState) => {
+//         const getInvitesEndpoint = getEndPoint("getInvites", username);
+//         fetch(getInvitesEndpoint.url, {
+//             method: getInvitesEndpoint.method
+//         })
+//             .then(respsone => respsone.json())
+//             .then(invites => {
+//                 console.table({invites})
+//             })
+//             .catch(err => {
+//                 dispatch(setToastBackground("warning"));
+//                 dispatch(setToastHeader("Error Occured!"))
+//                 dispatch(setToastMessage("Error fetching invites"));
+//                 dispatch(setShouldShowToast(true));
+//             })
+//     }
+// }
 
 export function deleteEvent(id) {
     return (dispatch, getState) => {

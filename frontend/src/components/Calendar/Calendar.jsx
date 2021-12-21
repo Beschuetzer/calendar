@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setShouldShowWelcome, fetchUserEvents } from '../../modules/calendar';
+import { setShouldShowWelcome, fetchUserEvents, fetchInvites } from '../../modules/calendar';
 import EventsManager from './Events/EventsManager';
 
 function Calendar() {
@@ -39,8 +39,6 @@ function Calendar() {
                 dispatch(setShouldShowWelcome(false))
             }, ALERT_DURATION);
         }
-
-        dispatch(fetchUserEvents(currentUser));
     }, [])
 
     return (
