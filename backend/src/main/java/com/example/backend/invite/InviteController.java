@@ -39,9 +39,6 @@ public class InviteController {
             @RequestParam("inviteeId") Long inviteeId,
             @RequestParam("isAttending") Boolean isAttending
     ) {
-        logger.info(id.toString());
-        logger.info(inviteeId.toString());
-        logger.info(isAttending.toString());
         return this.service.changeIsAttending(id, inviteeId, isAttending);
     }
 }

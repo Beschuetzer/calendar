@@ -387,19 +387,16 @@ export function setIsAttendingOnInvite(invite, isAttending) {
     return (dispatch, getState) => {
         dispatch(setInviteIsAttending(invite.id, isAttending))
         const changeIsAttendingEndpoint = getEndPoint("changeIsAttending", invite.id, invite.inviteeId, isAttending);
-        console.table({changeIsAttendingEndpoint})
         fetch(changeIsAttendingEndpoint.url, {
             method: changeIsAttendingEndpoint.method,
         })
             .then(response => response)
             .then(json => {
-                console.table({message: json})
                 let message = `Enjoy '${invite.eventTitle}'.`
                 if (!isAttending) message = `Maybe next time you will attend '${invite.eventTitle}'?`;
                 dispatch(setToast(message, json.ok ? "success" : "danger", json.ok ? "Status Changed!" : "Error Occurred!"));
             })
             .catch(err => {
-                console.table({err})
                 dispatch(setToast(err, "danger"))
             })
     }
@@ -420,7 +417,8 @@ export function putEvent(eventToModify) {
         })
             .then(response => response.json())
             .then(json => {
-                console.log(json);
+                const message = `Successfully updated '${eventToModify.title}'`;
+                dispatch(setToast(message, "success", "Event Updated!"))
             })
             .catch(err => dispatch(setToast(err, "danger")))
     }

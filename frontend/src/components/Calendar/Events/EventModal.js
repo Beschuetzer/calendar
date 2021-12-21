@@ -13,11 +13,17 @@ function EventModal({}) {
     const shouldShow = useSelector((state) => state.calendar.shouldShowEventModal);
     const eventToEdit = useSelector((state) => state.calendar.eventToEdit);
 
+    const [shouldDisableSave, setShouldDisableSave] = useState(true);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dateTime, setDateTime] = useState(Date.now());
 
     useEffect(() => {
+        console.table({shouldDisableSave})
+    })
+
+    useEffect(() => {
+        console.log("Changing disable save")
         if (eventToEdit) {
             setDateTime(getDateTimeLocalString(eventToEdit.dateTime));
             setDescription(eventToEdit.description);
@@ -25,6 +31,7 @@ function EventModal({}) {
         } else {
             resetState();
         }
+        setShouldDisableSave(true);
     }, [eventToEdit]);
 
     const getModalTitle = () => {
@@ -37,17 +44,18 @@ function EventModal({}) {
         dispatch(closeModal());
     }
 
-    const handleDateChange = (e) => {
-        console.log(e.target.value)
-
-    }
-
     const handleSave = (e) => {
         if (!title || !description | !dateTime) return;
         resetState();
 
         if (eventToEdit) {
-            return dispatch(updateNewEvent({id: eventToEdit.id, owner: eventToEdit.owner, title, description, dateTime}));
+            return dispatch(updateNewEvent({
+                id: eventToEdit.id,
+                owner: eventToEdit.owner,
+                title,
+                description,
+                dateTime
+            }));
         }
 
         return dispatch(saveNewEvent(title, description, dateTime));
@@ -61,6 +69,21 @@ function EventModal({}) {
         }
     }
 
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+        setShouldDisableSave(false);
+    }
+
+    const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+        setShouldDisableSave(false);
+    }
+
+    const handleDateTimeChange = (e) => {
+        setDateTime(e.target.value);
+        setShouldDisableSave(false);
+    }
+
     return (
         <Modal show={shouldShow} onHide={handleClose} centered>
             <Modal.Header closeButton>
@@ -71,20 +94,20 @@ function EventModal({}) {
                     <Form.Group className="mb-3" controlId="formBasicTitle">
                         <Form.Label>Title:&nbsp;</Form.Label>
                         <Form.Control value={title} type="text" placeholder="Enter Event Title"
-                                      onChange={(e) => setTitle(e.target.value)}/>
+                                      onChange={(e) => handleTitleChange(e)}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicDescription">
                         <Form.Label>Description:&nbsp;</Form.Label>
                         <Form.Control as={"textarea"} type="text" value={description}
-                                      onChange={(e) => setDescription(e.target.value)}/>
+                                      onChange={(e) => handleDescriptionChange(e)}/>
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Date:&nbsp;</Form.Label>
                         <Form.Control
                             min={getMinDate()}
-                            type={"datetime-local"} value={dateTime} onChange={(e) => setDateTime(e.target.value)}/>
+                            type={"datetime-local"} value={dateTime} onChange={(e) => handleDateTimeChange(e)}/>
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -95,7 +118,7 @@ function EventModal({}) {
                 <Button
                     variant="primary"
                     onClick={handleSave}
-                    disabled={!title || !description | !dateTime}
+                    disabled={shouldDisableSave}
                 >
                     Save
                 </Button>

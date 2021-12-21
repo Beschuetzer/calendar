@@ -39,7 +39,7 @@ function EventsManager(props) {
     return (
         <Row>
             <Col className={"text-center text-md-start mb-3"}>
-                <h2>Event Manager</h2>
+                <h2>Your Events:</h2>
                 <Row className={"justify-content-center justify-content-md-start align-items-md-center align-items-start"}>
                     <Col xs={"auto"} className={"mb-3 mb-md-0"}>
                         <Button variant={"success"} onClick={handleAddEvent}>Add Event</Button>
