@@ -14,6 +14,7 @@ public class EventController {
         this.service = service;
     }
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Event[]> getEvents(
             @RequestParam String username

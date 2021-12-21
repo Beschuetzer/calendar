@@ -1,6 +1,6 @@
 import {v4} from 'uuid';
 import {baseUrl, endPoints, getEndPoint} from "../data/endPoints";
-import {setShouldShowToast, setToastText} from "./home";
+import {setShouldResetToastTimeout, setShouldShowToast, setToastHeader, setToastMessage, setToastText} from "./home";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -383,9 +383,25 @@ export function createInvites() {
         const usersToInvite = state.calendar.usersToInvite;
 
         console.table({eventToInviteTo, usersToInvite})
-
+        const addInvitesEndpoint = getEndPoint("addInvites", eventToInviteTo.id);
         // url: `${baseUrl}/users?eventId=${param1}`,
-
+        fetch(addInvitesEndpoint.url, {
+            method: addInvitesEndpoint.method,
+            headers: addInvitesEndpoint.headers,
+            body: JSON.stringify(usersToInvite),
+        })
+            .then(response => {
+                if (response.ok) {
+                    dispatch(setToastHeader("Success!"));
+                    dispatch(setShouldResetToastTimeout(true));
+                    dispatch(setToastMessage(`${usersToInvite.join(', ')} invited to '${eventToInviteTo.title}'`))
+                    dispatch(setShouldShowToast(true));
+                }
+            })
+            .catch(err => {
+                dispatch(setToastText(err))
+                dispatch(setShouldShowToast(true))
+            })
     }
 }
 //endregion
