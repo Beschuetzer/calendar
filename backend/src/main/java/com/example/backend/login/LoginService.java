@@ -34,32 +34,30 @@ public class LoginService {
     }
 
     public ResponseEntity<LoginResponse> loginUser(String username, String hashedPassword) {
-        if (username == null || hashedPassword == null) return null;
         Optional<CalendarUser> optionalCalendarUser = calendarUserRepository.findCalendarUserByCredentials(username, hashedPassword);
 
-        if (optionalCalendarUser.isPresent()) {
-            Optional<Event[]> userEvents = eventRepository.findAllByUsername(username);
-            Optional<Invite[]> userInvites = inviteRepository.findInvitesByUsername(username);
-
-            List<Event> events = new ArrayList<>();
-            List<Invite> invites = new ArrayList<>();
-
-            if (userEvents.isPresent()) {
-                for(Event event : userEvents.get()) {
-                    events.add(event);
-                }
-            }
-
-            if (userInvites.isPresent()) {
-                for(Invite invite : userInvites.get()) {
-                    logger.info(invite.toString());
-                    invites.add(invite);
-                }
-            }
-
-            return ResponseEntity.ok(new LoginResponse(optionalCalendarUser.get(), invites, events));
-        } else {
+        if (optionalCalendarUser.isEmpty() || username == null || hashedPassword == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect password or username doesn't exist.");
+
+        Optional<Event[]> userEvents = eventRepository.findAllByUsername(username);
+        Optional<Invite[]> userInvites = inviteRepository.findInvitesByUsername(username);
+
+        List<Event> events = new ArrayList<>();
+        List<Invite> invites = new ArrayList<>();
+
+        if (userEvents.isPresent()) {
+            for (Event event : userEvents.get()) {
+                events.add(event);
+            }
         }
+
+        if (userInvites.isPresent()) {
+            for (Invite invite : userInvites.get()) {
+                logger.info(invite.toString());
+                invites.add(invite);
+            }
+        }
+
+        return ResponseEntity.ok(new LoginResponse(optionalCalendarUser.get(), invites, events));
     }
 }

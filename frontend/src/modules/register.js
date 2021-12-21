@@ -3,21 +3,14 @@ import { setShouldShowWelcome } from '../modules/calendar'
 import {getEndPoint} from "../data/endPoints";
 import {getSha256} from "../helpers/helpers";
 
-const ADD_USER = 'react_redux/register/ADD_USER';
 const SET_REGISTRATION_RESULT = 'react_redux/register/SET_REGISTRATION_RESULT';
 
 const INITIAL_STATE = {
-    registeredUsers: [],
     registrationResult: {},
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ADD_USER:
-            return {
-                ...state,
-                registeredUsers: [...state.registeredUsers, action.payload]
-            }
         case SET_REGISTRATION_RESULT:
             console.log(action.payload)
             return {
@@ -33,13 +26,6 @@ export default reducer;
 
 
 //#Action Creators
-export const addUser = (userToAdd) => {
-    return {
-        type: ADD_USER,
-        payload: userToAdd,
-    }
-}
-
 export const setRegistrationResult = (registrationResult) => {
     return {
         type: SET_REGISTRATION_RESULT,

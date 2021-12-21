@@ -9,6 +9,7 @@ import {
     setToastMessage,
     setToastText
 } from "./home";
+import {setRegistrationResult} from "./register";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -341,6 +342,7 @@ export function resetLoginData() {
         dispatch(setInvites([]));
         dispatch(setCurrentUserId(-1));
         dispatch(setCurrentUser(""))
+        dispatch(setRegistrationResult(""));
     }
 }
 

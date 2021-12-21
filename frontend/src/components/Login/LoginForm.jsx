@@ -40,7 +40,6 @@ function LoginForm({
         `
                 fetch(urlToSend, {
                     method: loginEndPoint.method,
-                    headers: loginEndPoint.headers
                 })
                     .then(response => {
                         return response.json();
