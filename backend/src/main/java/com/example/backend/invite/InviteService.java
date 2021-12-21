@@ -41,6 +41,7 @@ public class InviteService {
             inviteRepository.save(toSave);
         }
 
+        logger.info("good!");
         return ResponseEntity.ok(String.format("Successfully changed status to%s attending.", isAttending ? "" : " not"));
     }
 

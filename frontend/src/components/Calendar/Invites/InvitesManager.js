@@ -15,7 +15,7 @@ function InvitesManager(props) {
     return (
         <>
             <div className={"text-center mb-3 mt-3 mt-md-0"}>
-                <h2 className={"text-center mb-0"}>Your Invites</h2>
+                <h2 className={"text-center mb-0"}>Events you have been invited to:</h2>
                 <small>(Click for details)</small>
             </div>
             <ListGroup as="ul">

@@ -278,8 +278,6 @@ export function saveNewEvent(title, description, date) {
             dateTime: date,
         }
 
-        console.table({newEventObj})
-        
         const addEventEndPoint = getEndPoint("addEvent");
         fetch(addEventEndPoint.url, {
             method: addEventEndPoint.method,
@@ -308,22 +306,8 @@ export function editEvent(editedEvent) {
 export function updateNewEvent(newEventObj) {
     return (dispatch, getState) => {
         const state = getState();
-        console.log("in update new Event")
-        console.table({newEventObj, state})
         dispatch(setHasLoadedEventToEdit(false))
         dispatch(setShouldShowEventModal(false));
-
-        //iterate throught each event in state and add unchanged ones
-        // const eventsCopy = [];
-        // for (let i = 0; i < state.calendar.events.length; i++) {
-        //     const eventToCheck = state.calendar.events[i];
-        //     if (eventToCheck.id == newEventObj.id) {
-        //         eventsCopy.push(newEventObj);
-        //         continue;
-        //     }
-        //     eventsCopy.push(eventToCheck);
-        // }
-        // console.table({eventsCopy})
 
         let indexToUse = -1;
         const eventsCopy = [...state.calendar.events];
@@ -336,7 +320,7 @@ export function updateNewEvent(newEventObj) {
         }
         eventsCopy[indexToUse] = newEventObj;
         dispatch(setEvents(eventsCopy))
-        putEvent(newEventObj);
+        dispatch(putEvent(newEventObj));
     }
 }
 
@@ -357,7 +341,6 @@ export function applyEventFilter(startDate, endDate) {
             return false;
         })
 
-        console.table({filteredEvents})
         dispatch(setFilteredEvents(filteredEvents.length > 0 ? filteredEvents : null))
     }
 }
@@ -384,7 +367,6 @@ export function deleteEvent(id) {
         if (id <= 0) return;
 
         const state = getState();
-
         const deleteEventEndpoint = getEndPoint("deleteEvent", id, state.login.currentUserId);
         fetch(deleteEventEndpoint.url, {
             method: deleteEventEndpoint.method,
@@ -395,10 +377,7 @@ export function deleteEvent(id) {
                 dispatch(setShouldShowToast(true));
                 dispatch(setToastText(successMessage));
             })
-            .catch(error => {
-                dispatch(setShouldShowToast(true));
-                dispatch(setToastText(error));
-            })
+            .catch(err => dispatch(setToast(err, "danger")))
 
         dispatch(removeEvent(id));
     }
@@ -407,34 +386,44 @@ export function deleteEvent(id) {
 export function setIsAttendingOnInvite(invite, isAttending) {
     return (dispatch, getState) => {
         dispatch(setInviteIsAttending(invite.id, isAttending))
-
-        const changeIsAttendingEndpoint = getEndPoint("changeIsAttending", invite.id,  invite.invitee, isAttending);
+        const changeIsAttendingEndpoint = getEndPoint("changeIsAttending", invite.id, invite.inviteeId, isAttending);
+        console.table({changeIsAttendingEndpoint})
         fetch(changeIsAttendingEndpoint.url, {
             method: changeIsAttendingEndpoint.method,
-            headers: changeIsAttendingEndpoint.headers,
         })
-        //todo: hook up to backend
+            .then(response => response)
+            .then(json => {
+                console.table({message: json})
+                let message = `Enjoy '${invite.eventTitle}'.`
+                if (!isAttending) message = `Maybe next time you will attend '${invite.eventTitle}'?`;
+                dispatch(setToast(message, json.ok ? "success" : "danger", json.ok ? "Status Changed!" : "Error Occurred!"));
+            })
+            .catch(err => {
+                console.table({err})
+                dispatch(setToast(err, "danger"))
+            })
     }
 }
 
 //endregion
 
 //region Helpers
-function putEvent(eventToModify) {
-    const editEventsEndpoint = getEndPoint("editEvent", eventToModify.id,  eventToModify.owner);
-    console.table({editEventsEndpoint, eventToModify})
-    fetch(editEventsEndpoint.url, {
-        method: editEventsEndpoint.method,
-        body: JSON.stringify(eventToModify),
-        headers: {
-            "content-type": "application/json",
-        }
-    })
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
+export function putEvent(eventToModify) {
+    return (dispatch, getState) => {
+        const editEventsEndpoint = getEndPoint("editEvent", eventToModify.id, eventToModify.owner);
+        fetch(editEventsEndpoint.url, {
+            method: editEventsEndpoint.method,
+            body: JSON.stringify(eventToModify),
+            headers: {
+                "content-type": "application/json",
+            }
         })
-        .catch(e => console.log(e))
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+            })
+            .catch(err => dispatch(setToast(err, "danger")))
+    }
 }
 
 export function createInvites() {
@@ -442,10 +431,7 @@ export function createInvites() {
         const state = getState();
         const eventToInviteTo = state.calendar.eventToInviteTo;
         const usersToInvite = state.calendar.usersToInvite;
-
-        console.table({eventToInviteTo, usersToInvite})
         const addInvitesEndpoint = getEndPoint("addInvites", eventToInviteTo.id);
-        // url: `${baseUrl}/users?eventId=${param1}`,
         fetch(addInvitesEndpoint.url, {
             method: addInvitesEndpoint.method,
             headers: addInvitesEndpoint.headers,
@@ -460,13 +446,23 @@ export function createInvites() {
                     dispatch(setShouldResetToastTimeout(true));
                     dispatch(setToastMessage(`${usersToInvite.join(', ')} invited to '${eventToInviteTo.title}'`))
                     dispatch(setShouldShowToast(true));
+                    return;
                 }
+
             })
             .catch(err => {
-                dispatch(setToastBackground("warning"));
-                dispatch(setToastMessage(err))
-                dispatch(setShouldShowToast(true))
+                dispatch(setToast(err, "danger"));
             })
+    }
+}
+
+export function setToast(message, backgroundColor = "success", headerText = "Error Occurred!") {
+    return (dispatch, getState) => {
+        console.log("setToast called")
+        dispatch(setToastHeader(headerText))
+        dispatch(setToastBackground(backgroundColor));
+        dispatch(setToastMessage(message))
+        dispatch(setShouldShowToast(true))
     }
 }
 //endregion
