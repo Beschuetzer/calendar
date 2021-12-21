@@ -1,13 +1,9 @@
 import React, {useEffect} from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Tab from 'react-bootstrap/Tab';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {useDispatch, useSelector} from "react-redux";
 import Invite from "./Invite";
 
 function InvitesManager(props) {
-    const dispatch = useDispatch();
     const invites = useSelector((state => state.calendar.invites));
 
     const renderInvites = () => {
@@ -15,11 +11,6 @@ function InvitesManager(props) {
             return <Invite key={invite.id} invite={invite}/>
         })
     }
-
-    useEffect(() => {
-        console.log("re-render of invitesmanager")
-    });
-    
 
     return (
         <>

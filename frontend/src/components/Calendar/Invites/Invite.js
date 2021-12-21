@@ -28,20 +28,13 @@ function Invite({invite}) {
 
     const handleButtonClick = (e, value) => {
         e.stopPropagation();
+        setShouldShowButtons(false);
         dispatch(setIsAttendingOnInvite(invite, value))
     }
 
-    const toggleShowButtons = (e, shouldShow) => {
+    const handleExpandClick = (e, value) => {
         e.stopPropagation();
-        setShouldShowButtons(shouldShow);
-    }
-
-    const hideButtons = (e) => {
-        toggleShowButtons(e,  false);
-    }
-
-    const showButtons = (e) => {
-        toggleShowButtons(e,  true);
+        setShouldShowButtons(value);
     }
 
     const renderItem = () => {
@@ -50,7 +43,7 @@ function Invite({invite}) {
                 <Col >
                     <h5 className={"text-dark"}>{invite.eventTitle}</h5>
                 </Col>
-                <Col xs={"auto"} onClick={(e) => shouldShowButtons ? hideButtons(e) : showButtons(e)}>
+                <Col xs={"auto"} onClick={(e) => shouldShowButtons ? handleExpandClick(e, false) : handleExpandClick(e, true)}>
                     <span dangerouslySetInnerHTML={{__html: shouldShowButtons ? '&minus;' : '&plus;'}}></span>
                 </Col>
                 {renderAcceptAndDeclineButtons()}
