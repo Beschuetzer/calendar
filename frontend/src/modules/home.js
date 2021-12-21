@@ -160,7 +160,7 @@ export const resetState = () => {
 //endregion
 
 //region Side Effects
-export function handleLoginSuccess(id, username) {
+export function handleLoginSuccess(userObj) {
     return (dispatch, getState) => {
 
         dispatch(setToastHeader(""));
@@ -169,8 +169,8 @@ export function handleLoginSuccess(id, username) {
         dispatch(setToastMessage(""));
         dispatch(setShouldShowToast(false));
         dispatch(setShouldDisableSubmitButton(false));
-        dispatch(setCurrentUser(username))
-        dispatch(setCurrentUserId(id))
+        dispatch(setCurrentUser(userObj?.username))
+        dispatch(setCurrentUserId(userObj?.id))
         dispatch(setShouldShowWelcome(true));
     }
 }

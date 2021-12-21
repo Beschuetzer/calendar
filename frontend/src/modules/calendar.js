@@ -14,6 +14,7 @@ const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
 const REMOVE_EVENT = "react_redux/calendar/REMOVE_EVENT"
 const SET_EVENTS = "react_redux/calendar/SET_EVENTS"
+const SET_INVITES = "react_redux/calendar/SET_INVITES"
 const SET_FILTERED_EVENTS = "react_redux/calendar/SET_FILTERED_EVENTS"
 const SET_EVENT_TO_EDIT = "react_redux/calendar/SET_EVENT_TO_EDIT"
 const SET_SHOULD_SHOW_EVENT_MODAL = "react_redux/calendar/SET_SHOULD_SHOW_EVENT_MODAL"
@@ -57,6 +58,11 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 events: action.payload
+            }
+        case SET_INVITES:
+            return {
+                ...state,
+                invites: action.payload
             }
         case SET_FILTERED_EVENTS:
             console.log(action.payload)
@@ -140,6 +146,13 @@ export function setEvents(events) {
     return {
         type: SET_EVENTS,
         payload: events,
+    }
+}
+
+export function setInvites(invites) {
+    return {
+        type: SET_INVITES,
+        payload: invites,
     }
 }
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {connect} from "react-redux";
-import {mockLogin} from "../../mock/mock";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom";
@@ -12,8 +11,9 @@ import {
     setShouldDisableSubmitButton,
     setShouldResetToastTimeout,
 } from '../../modules/home';
-import {endPoints, getEndPoint} from "../../data/endPoints";
+import {getEndPoint} from "../../data/endPoints";
 import {getSha256} from "../../helpers/helpers";
+import {setEvents, setInvites} from "../../modules/calendar";
 
 LoginForm.propTypes = {
     handleLoginSuccess: PropTypes.func,
@@ -47,7 +47,9 @@ function LoginForm({
                     })
                     .then(json => {
                         if (json.error) return handleLoginFail(json.message);
-                        handleLoginSuccess(json.id, json.username);
+                        handleLoginSuccess(json.user);
+                        dispatch(setEvents(json.events));
+                        dispatch(setInvites(json.invites));
                     })
                     .catch(msg => {
                         handleLoginFail(msg)

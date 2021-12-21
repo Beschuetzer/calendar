@@ -20,9 +20,9 @@ function Login(
     const navigate = useNavigate();
 
 
-    function redirectToCalendar(id,username) {
+    function redirectToCalendar(userObj) {
         console.log("redirecting")
-        dispatch(handleLoginSuccess(id,username));
+        dispatch(handleLoginSuccess(userObj));
         navigate('/calendar');
     }
 
