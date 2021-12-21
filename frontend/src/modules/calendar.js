@@ -25,6 +25,7 @@ const RESET_EVENT_TO_EDIT = "react_redux/calendar/RESET_EVENT_TO_EDIT"
 const ADD_USER_TO_INVITE = "react_redux/calendar/ADD_USER_TO_INVITE"
 const REMOVE_USER_TO_INVITE = "react_redux/calendar/REMOVE_USER_TO_INVITE"
 const RESET_USERS_TO_INVITE = "react_redux/calendar/RESET_USERS_TO_INVITE"
+const RESET_CALENDAR_STATE = "react_redux/calendar/RESET_CALENDAR_STATE"
 
 const INITIAL_STATE = {
     shouldShowWelcome: false,
@@ -124,6 +125,10 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 usersToInvite: [],
             }
+        case RESET_CALENDAR_STATE:
+            return {
+                ...INITIAL_STATE
+            }
         default:
             return state;
     }
@@ -222,6 +227,12 @@ export function setHasLoadedEventToEdit(value) {
     return {
         type: SET_HAS_LOADED_EVENT_TO_EDIT,
         payload: value,
+    }
+}
+
+export function resetCalendarState() {
+    return {
+        type: RESET_CALENDAR_STATE
     }
 }
 

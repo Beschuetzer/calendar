@@ -1,4 +1,4 @@
-import {setShouldShowWelcome} from '../modules/calendar';
+import {resetCalendarState, resetLoginData, setShouldShowWelcome} from '../modules/calendar';
 
 //region Action Types
 const SET_SHOULD_RESET_TOAST_TIMEOUT = "react_redux/home/SET_SHOULD_RESET_TOAST_TIMEOUT";
@@ -11,7 +11,7 @@ const SET_TOAST_MESSAGE = "react_redux/home/SET_TOAST_MESSAGE";
 const SET_SHOULD_DISABLE_SUBMIT_BUTTON = "react_redux/home/SET_SHOULD_DISABLE_SUBMIT_BUTTON";
 const SET_CURRENT_USER = "react_redux/home/SET_CURRENT_USER";
 const SET_CURRENT_USER_ID = "react_redux/home/SET_CURRENT_USER_ID";
-const RESET_STATE = "react_redux/home/RESET_STATE";
+const RESET_LOGIN_STATE = "react_redux/home/RESET_LOGIN_STATE";
 //endregion
 
 const INITIAL_STATE = {
@@ -80,7 +80,7 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUserId: action.payload,
             }
-        case RESET_STATE:
+        case RESET_LOGIN_STATE:
             return {
                 ...INITIAL_STATE,
             }
@@ -152,9 +152,9 @@ export const setCurrentUserId = (id) => {
         payload: id,
     }
 }
-export const resetState = () => {
+export const resetLoginState = () => {
     return {
-        type: RESET_STATE,
+        type: RESET_LOGIN_STATE,
     }
 }
 //endregion
@@ -186,7 +186,8 @@ export function handleLoginFailure(exceptionMsg) {
 
 export function logout() {
     return (dispatch, getState) => {
-        dispatch(resetState());
+        dispatch(resetLoginState());
+        dispatch(resetCalendarState());
     }
 }
 
