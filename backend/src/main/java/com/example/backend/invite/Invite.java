@@ -23,11 +23,14 @@ public class Invite {
     Long inviteeId;
     @JsonProperty
     String eventTitle;
+    @JsonProperty
+    Boolean isAttending;
 
     public Invite(Long eventId, Long inviteeId, String eventTitle) {
         this.eventId = eventId;
         this.inviteeId = inviteeId;
         this.eventTitle = eventTitle;
+        this.isAttending = null;
     }
 
     public Invite() {
