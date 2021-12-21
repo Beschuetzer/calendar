@@ -1,6 +1,6 @@
 export const baseUrl = "http://localhost:8080"
 
-export function getEndPoint(keyToReturn, param1, param2) {
+export function getEndPoint(keyToReturn, param1, param2, param3) {
     if (!keyToReturn) return null;
     const endPoints = {
         register: {
@@ -48,6 +48,13 @@ export function getEndPoint(keyToReturn, param1, param2) {
                 "content-type": "application/json"
             }
         },
+        changeIsAttending: {
+            url: `${baseUrl}/invites?id=${param1}&inviteeId=${param2}&isAttending=${param3}`,
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json"
+            }
+        }
     }
     return endPoints[keyToReturn];
 }

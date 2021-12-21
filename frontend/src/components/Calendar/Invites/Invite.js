@@ -3,23 +3,32 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import {setIsAttendingOnInvite} from "../../../modules/calendar";
+import {useDispatch} from "react-redux";
+
+
 
 function Invite({invite}) {
-    const [isAttending, setIsAttending] = useState(invite.isAttending);
+    const dispatch = useDispatch();
     const [shouldShowButtons, setShouldShowButtons] = useState(invite.isAttending === null);
 
     const renderAcceptAndDeclineButtons = () => {
         if (!invite) return null;
         if (shouldShowButtons) return (
             <Row>
-                <Col>
-                    <Button variant={"success"} onClick={(e) => setIsAttending(true)}>Accept</Button>
+                <Col className={"text-center"}>
+                    <Button variant={"success"} onClick={(e) => handleButtonClick(e, true)}>Accept</Button>
                 </Col>
-                <Col>
-                    <Button variant={"danger"} onClick={(e) => setIsAttending(false)}>Decline</Button>
+                <Col className={"text-center"}>
+                    <Button variant={"danger"} onClick={(e) => handleButtonClick(e, false)}>Decline</Button>
                 </Col>
             </Row>
         )
+    }
+
+    const handleButtonClick = (e, value) => {
+        e.stopPropagation();
+        dispatch(setIsAttendingOnInvite(invite, value))
     }
 
     const toggleShowButtons = (e, shouldShow) => {
@@ -36,10 +45,10 @@ function Invite({invite}) {
     }
 
     const renderItem = () => {
-        return (<ListGroup.Item action onClick={(e) => handleClick(e)} variant={isAttending ? "success" : "danger"} as={"li"} style={{cursor: "pointer"}}>
+        return (<ListGroup.Item action onClick={(e) => handleClick(e)} variant={invite.isAttending ? "success" : "danger"} as={"li"} style={{cursor: "pointer"}}>
             <Row>
-                <Col>
-                    <h5>{invite.eventTitle}</h5>
+                <Col >
+                    <h5 className={"text-dark"}>{invite.eventTitle}</h5>
                 </Col>
                 <Col xs={"auto"} onClick={(e) => shouldShowButtons ? hideButtons(e) : showButtons(e)}>
                     <span dangerouslySetInnerHTML={{__html: shouldShowButtons ? '&minus;' : '&plus;'}}></span>
@@ -55,11 +64,6 @@ function Invite({invite}) {
         e.stopPropagation();
         console.log(e?.target?.innerHTML);
     }
-
-    useEffect(() => {
-
-    }, [isAttending]);
-
 
     return (
         <>

@@ -94,7 +94,7 @@
       <recent name="com.example.backend.register" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="Spring Boot.BackendApplication">
     <configuration name="RegisterControllerTest.testRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="backend" />
       <extension name="coverage">

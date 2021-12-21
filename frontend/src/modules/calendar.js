@@ -20,6 +20,7 @@ const SET_FILTERED_EVENTS = "react_redux/calendar/SET_FILTERED_EVENTS"
 const SET_EVENT_TO_EDIT = "react_redux/calendar/SET_EVENT_TO_EDIT"
 const SET_SHOULD_SHOW_EVENT_MODAL = "react_redux/calendar/SET_SHOULD_SHOW_EVENT_MODAL"
 const SET_EVENT_TO_INVITE_TO = "react_redux/calendar/SET_EVENT_TO_INVITE_TO"
+const SET_INVITE_IS_ATTENDING = "react_redux/calendar/SET_INVITE_IS_ATTENDING"
 const SET_HAS_LOADED_EVENT_TO_EDIT = "react_redux/calendar/SET_HAS_LOADED_EVENT_TO_EDIT"
 const RESET_EVENT_TO_EDIT = "react_redux/calendar/RESET_EVENT_TO_EDIT"
 const ADD_USER_TO_INVITE = "react_redux/calendar/ADD_USER_TO_INVITE"
@@ -87,6 +88,20 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 eventToInviteTo: action.payload,
+            }
+        case SET_INVITE_IS_ATTENDING:
+            const copyOfInvites = [...state.invites];
+            for (const copyOfInvite of copyOfInvites) {
+                if (copyOfInvite.id === action.id) {
+                    copyOfInvite.isAttending = action.payload;
+                    break;
+                }
+            }
+            console.table({id: action.id, setInviteIsAttending: action.payload, copyOfInvites})
+
+            return {
+                ...state,
+                invites: copyOfInvites,
             }
         case SET_HAS_LOADED_EVENT_TO_EDIT:
             return {
@@ -236,6 +251,14 @@ export function resetCalendarState() {
     }
 }
 
+export function setInviteIsAttending(inviteId, isAttending) {
+    return {
+        type: SET_INVITE_IS_ATTENDING,
+        id: inviteId,
+        payload: isAttending,
+    }
+}
+
 //region Side FX
 export function openAddEventModal() {
     return (dispatch, getState) => {
@@ -379,6 +402,13 @@ export function deleteEvent(id) {
             })
 
         dispatch(removeEvent(id));
+    }
+}
+
+export function setIsAttendingOnInvite(invite, isAttending) {
+    return (dispatch, getState) => {
+        console.table({invite,  isAttending})
+        dispatch(setInviteIsAttending(invite.id, isAttending))
     }
 }
 
