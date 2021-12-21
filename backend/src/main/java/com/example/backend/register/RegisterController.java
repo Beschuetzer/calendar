@@ -24,7 +24,6 @@ public class RegisterController {
     public ResponseEntity<CalendarUser> register(
             @RequestBody CalendarUser user
     ) {
-        logger.info(String.valueOf(user.toString()));
         return this.service.register(user);
     }
 }
