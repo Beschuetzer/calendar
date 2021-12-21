@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setShouldShowWelcome, resetLoginData } from '../../modules/calendar';
 import EventsManager from './Events/EventsManager';
+import InvitesManager from "./Invites/InvitesManager";
 
 function Calendar() {
     const dispatch = useDispatch();
@@ -52,8 +55,14 @@ function Calendar() {
                 You can also use the Tab components to create ARIA compliant tabbable interfaces with the <ListGroup> component.
                 Swap out the <Nav> component for the list group and you are good to go.
             */}
-
-           <EventsManager/>
+            <Row>
+                <Col>
+                    <EventsManager/>
+                </Col>
+                <Col xs={12} lg={4} md={5}>
+                    <InvitesManager/>
+                </Col>
+            </Row>
         </>
     );
 }

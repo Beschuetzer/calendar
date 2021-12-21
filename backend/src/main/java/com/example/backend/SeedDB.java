@@ -64,14 +64,14 @@ public class SeedDB {
             Event e8 = new Event(4L, LocalDateTime.now(), "Event 8", "Some description 8");
             eventRepository.saveAll(List.of(e1,e2,e3,e4,e5,e6,e7,e8));
 
-            Invite i1_2 = new Invite(5L, 1L, "Event 5");
-            Invite i1_1 = new Invite(6L, 1L, "Event 6");
-            Invite i1_3 = new Invite(7L, 1L, "Event 7");
-            Invite i1_4 = new Invite(8L, 1L, "Event 8");
-            Invite i2_2 = new Invite(5L, 2L, "Event 5");
-            Invite i2_4 = new Invite(8L, 2L, "Event 8");
-            Invite i3_2 = new Invite(6L, 3L, "Event 6");
-            Invite i3_4 = new Invite(7L, 3L, "Event 7");
+            Invite i1_2 = new Invite(5L, 1L, "Doing something really special before the end of the world as we know it.");
+            Invite i1_1 = new Invite(6L, 1L, "Doing something world as we know it. 6");
+            Invite i1_3 = new Invite(7L, 1L, "Doing something really special before the end of the world as we know it. 7");
+            Invite i1_4 = new Invite(8L, 1L, "Doing before the end of the world as we know it. 8");
+            Invite i2_2 = new Invite(5L, 2L, "Doing something really special before the end of the world as we know it. 5");
+            Invite i2_4 = new Invite(8L, 2L, "Doing something really special before the end of know it. 8");
+            Invite i3_2 = new Invite(6L, 3L, "Doing something really as we know it. 6");
+            Invite i3_4 = new Invite(7L, 3L, "Doing something really special before e world as we know it. 7");
             inviteRepository.saveAll(List.of(
                     i1_1, i1_2, i1_3, i1_4,
                     i2_2, i2_4,
