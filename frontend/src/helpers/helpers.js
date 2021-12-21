@@ -8,7 +8,6 @@ export const getBodyMsg = (originalMsg) => {
     if (match) {
         for (let i = 1; i < match.length; i++) {
             const stringInParenthesisToBold = match[i];
-            console.log(stringInParenthesisToBold)
             fullMessage = fullMessage.replace(stringInParenthesisToBold, `<span class="fw-bold">${stringInParenthesisToBold}</span>`);
         }
     }

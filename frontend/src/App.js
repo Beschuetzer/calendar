@@ -14,7 +14,6 @@ import {setShouldResetToastTimeout, setShouldShowToast} from "./modules/home";
 function App() {
     return (
         <BrowserRouter>
-
             <LoginToast
                 position={"middle-center"}
             />

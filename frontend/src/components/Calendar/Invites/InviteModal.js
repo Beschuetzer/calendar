@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import FindUsers from './FindUsers'
 import {createInvites, closeInviteModal} from '../../../modules/calendar'
+import {setShouldShowToast} from "../../../modules/home";
 
 function InviteModal(props) {
     const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function InviteModal(props) {
     const handleSave = (e) => {
         dispatch(createInvites());
     }
+
+    useEffect(() => {
+        dispatch(setShouldShowToast(false));
+    }, [eventToInviteTo])
     
     return (
         <Modal show={!!eventToInviteTo} onHide={handleClose} centered>

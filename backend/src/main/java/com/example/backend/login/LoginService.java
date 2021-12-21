@@ -23,9 +23,6 @@ public class LoginService {
         if (username == null || hashedPassword == null) return null;
         Optional<CalendarUser> optionalCalendarUser = calendarUserRepository.findCalendarUserByCredentials(username, hashedPassword);
 
-//        if (optionalCalendarUser.isPresent()) return optionalCalendarUser.get();
-//        return null;
-
         if (optionalCalendarUser.isPresent()) {
             return ResponseEntity.ok(optionalCalendarUser.get());
         } else {

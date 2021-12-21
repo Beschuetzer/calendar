@@ -1,6 +1,13 @@
 import {v4} from 'uuid';
 import {baseUrl, endPoints, getEndPoint} from "../data/endPoints";
-import {setShouldResetToastTimeout, setShouldShowToast, setToastHeader, setToastMessage, setToastText} from "./home";
+import {
+    setShouldResetToastTimeout,
+    setShouldShowToast,
+    setToastBackground,
+    setToastHeader,
+    setToastMessage,
+    setToastText
+} from "./home";
 
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
@@ -392,6 +399,9 @@ export function createInvites() {
         })
             .then(response => {
                 if (response.ok) {
+                    dispatch(resetUsersToInvite());
+                    dispatch(setEventToInviteTo(null))
+                    dispatch(setToastBackground("success"));
                     dispatch(setToastHeader("Success!"));
                     dispatch(setShouldResetToastTimeout(true));
                     dispatch(setToastMessage(`${usersToInvite.join(', ')} invited to '${eventToInviteTo.title}'`))
@@ -399,7 +409,8 @@ export function createInvites() {
                 }
             })
             .catch(err => {
-                dispatch(setToastText(err))
+                dispatch(setToastBackground("warning"));
+                dispatch(setToastMessage(err))
                 dispatch(setShouldShowToast(true))
             })
     }

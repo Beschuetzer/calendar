@@ -59,7 +59,7 @@ function LoginToast({
     
     return (
         <ToastFade in={shouldShowToast}>
-            <ToastContainer className="p-3" position={position}>
+            <ToastContainer className="p-3" position={position} style={{zIndex: 10000}}>
                 <Toast className={`bg-${toastBackgroundColor} text-${toastTextColor}`}>
                     <Toast.Header closeButton={closeButton}>
                         <strong className="me-auto">{toastHeader}</strong>
