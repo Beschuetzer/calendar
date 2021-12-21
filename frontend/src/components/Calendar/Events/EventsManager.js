@@ -15,9 +15,6 @@ function EventsManager(props) {
     const events = useSelector((state) => state.calendar.events);
     const filteredEvents = useSelector((state) => state.calendar.filteredEvents);
 
-    const [minDate, setMinDate] = useState();
-    const [maxDate, setMaxDate] = useState();
-
     const handleAddEvent = (e) => {
         e.stopPropagation();
         dispatch(openAddEventModal())

@@ -7,8 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import PersonToInvite from './PersonToInvite'
-import {registeredUsers} from '../../../data/dataStructures'
-import {mockGetMatchingUsernames} from '../../../mock/mock';
 import {addUserToInvite, removeUserToInvite} from '../../../modules/calendar';
 import {getEndPoint} from "../../../data/endPoints";
 

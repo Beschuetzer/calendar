@@ -162,10 +162,7 @@ export const resetState = () => {
 //region Side Effects
 export function handleLoginSuccess(userObj) {
     return (dispatch, getState) => {
-
         dispatch(setToastHeader(""));
-        // dispatch(setToastBackground("success"));
-        // dispatch(setToastText("light"));
         dispatch(setToastMessage(""));
         dispatch(setShouldShowToast(false));
         dispatch(setShouldDisableSubmitButton(false));

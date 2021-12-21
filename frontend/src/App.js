@@ -7,9 +7,7 @@ import Calendar from "./components/Calendar/Calendar.jsx";
 import Logout from "./components/Logout/Logout.jsx";
 import Register from "./components/Register/Register.jsx";
 import LoginToast from "./components/Login/LoginToast";
-import React, {useCallback, useEffect, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {setShouldResetToastTimeout, setShouldShowToast} from "./modules/home";
+import React from "react";
 
 function App() {
     return (

@@ -3,16 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import LoginForm from "./LoginForm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import LoginToast from "./LoginToast";
-import {
-    setShouldResetToastTimeout,
-    setShouldShowToast,
-} from '../../modules/home';
 
 import { handleLoginSuccess, handleLoginFailure } from '../../modules/home'
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 function Login(
 ) {

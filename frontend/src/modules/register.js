@@ -1,7 +1,6 @@
-import {mockRegister} from '../mock/mock';
 import { setCurrentUser} from '../modules/home'
 import { setShouldShowWelcome } from '../modules/calendar'
-import {endPoints, getEndPoint} from "../data/endPoints";
+import {getEndPoint} from "../data/endPoints";
 import {getSha256} from "../helpers/helpers";
 
 const ADD_USER = 'react_redux/register/ADD_USER';

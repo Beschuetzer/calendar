@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";

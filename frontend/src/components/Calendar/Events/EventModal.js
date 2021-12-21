@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {getDateTimeLocalString, getMinDate} from '../../../helpers/helpers'
 
-import {setShouldShowEventModal, saveNewEvent, closeModal, updateNewEvent} from '../../../modules/calendar'
+import {saveNewEvent, closeModal, updateNewEvent} from '../../../modules/calendar'
 
 //the modal is going change based on whether redux state 'eventToEdit is null or not' be empty
 function EventModal({}) {
