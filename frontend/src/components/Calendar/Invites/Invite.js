@@ -22,28 +22,33 @@ function Invite({invite}) {
         )
     }
 
-    const renderItem = () => {
-        if (shouldShowButtons) return (
-            <ListGroup.Item action onClick={(e) => handleClick(e)} variant={"info"}>
-                <Row>
-                    <Col>
-                        <h5>{invite.eventTitle}</h5>
-                    </Col>
-                    {renderAcceptAndDeclineButtons()}
-                </Row>
-            </ListGroup.Item>
-        );
+    const toggleShowButtons = (e, shouldShow) => {
+        e.stopPropagation();
+        setShouldShowButtons(shouldShow);
+    }
 
-        return (
-            <ListGroup.Item action onClick={(e) => handleClick(e)} variant={"info"}>
-                <Row>
-                    <Col>
-                        <h5>{invite.eventTitle}</h5>
-                    </Col>
-                    <Col xs={"auto"} onClick={(e) => setShouldShowButtons(true)}>&plus;</Col>
-                </Row>
-            </ListGroup.Item>
-        )
+    const hideButtons = (e) => {
+        toggleShowButtons(e,  false);
+    }
+
+    const showButtons = (e) => {
+        toggleShowButtons(e,  true);
+    }
+
+    const renderItem = () => {
+        return (<ListGroup.Item action onClick={(e) => handleClick(e)} variant={"info"} as={"li"} style={{cursor: "pointer"}}>
+            <Row>
+                <Col>
+                    <h5>{invite.eventTitle}</h5>
+                </Col>
+                <Col xs={"auto"} onClick={(e) => shouldShowButtons ? hideButtons(e) : showButtons(e)}>
+                    <span dangerouslySetInnerHTML={{__html: shouldShowButtons ? '&minus;' : '&plus;'}}></span>
+                </Col>
+                {renderAcceptAndDeclineButtons()}
+            </Row>
+        </ListGroup.Item>
+    )
+        ;
     }
 
     const handleClick = (e) => {
