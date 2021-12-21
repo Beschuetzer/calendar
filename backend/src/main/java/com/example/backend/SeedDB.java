@@ -54,7 +54,7 @@ public class SeedDB {
             CalendarUser u8 = new CalendarUser("Jeff", Helpers.getSha256("test"));
             calendarUserRepository.saveAll(List.of(u1, u2, u3, u4,u5,u6,u7,u8));
 
-            Event e1 = new Event(1L, LocalDateTime.now(), "Event 1", "Some description");
+            Event e1 = new Event(1L, LocalDateTime.now(), "Event 1", "Some description 1");
             Event e2 = new Event(1L, LocalDateTime.now(), "Event 2", "Some description 2");
             Event e3 = new Event(1L, LocalDateTime.now(), "Event 3", "Some description 3");
             Event e4 = new Event(1L, LocalDateTime.now(), "Event 4", "Some description 4");
@@ -64,16 +64,14 @@ public class SeedDB {
             Event e8 = new Event(4L, LocalDateTime.now(), "Event 8", "Some description 8");
             eventRepository.saveAll(List.of(e1,e2,e3,e4,e5,e6,e7,e8));
 
-            Invite i1_2 = new Invite(5L, 1L);
-            Invite i1_1 = new Invite(6L, 1L);
-            Invite i1_3 = new Invite(7L, 1L);
-            Invite i1_4 = new Invite(8L, 1L);
-
-            Invite i2_2 = new Invite(5L, 2L);
-            Invite i2_4 = new Invite(8L, 2L);
-
-            Invite i3_2 = new Invite(6L, 3L);
-            Invite i3_4 = new Invite(7L, 3L);
+            Invite i1_2 = new Invite(5L, 1L, "Event 5");
+            Invite i1_1 = new Invite(6L, 1L, "Event 6");
+            Invite i1_3 = new Invite(7L, 1L, "Event 7");
+            Invite i1_4 = new Invite(8L, 1L, "Event 8");
+            Invite i2_2 = new Invite(5L, 2L, "Event 5");
+            Invite i2_4 = new Invite(8L, 2L, "Event 8");
+            Invite i3_2 = new Invite(6L, 3L, "Event 6");
+            Invite i3_4 = new Invite(7L, 3L, "Event 7");
             inviteRepository.saveAll(List.of(
                     i1_1, i1_2, i1_3, i1_4,
                     i2_2, i2_4,

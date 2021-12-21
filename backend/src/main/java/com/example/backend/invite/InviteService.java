@@ -52,10 +52,10 @@ public class InviteService {
                         break;
                     }
                 }
-                if (shouldAdd) newInvites.add(getNewInvite(eventId, username));
+                if (shouldAdd) newInvites.add(getNewInvite(eventId, username, optionalEvent.get().getTitle()));
             }
             else {
-                newInvites.add(getNewInvite(eventId, username));
+                newInvites.add(getNewInvite(eventId, username, optionalEvent.get().getTitle()));
             }
         }
 
@@ -63,9 +63,9 @@ public class InviteService {
         return ResponseEntity.ok(String.format("Successfully added invitees to the event with id of %s", eventId));
     }
 
-    private Invite getNewInvite(Long eventId, String username) {
+    private Invite getNewInvite(Long eventId, String username, String eventTitle) {
         Optional<CalendarUser> optionalCalendarUser = calendarUserRepository.findCalendarUserByUsername(username);
         if (optionalCalendarUser.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid username present");
-        return new Invite(eventId, optionalCalendarUser.get().getId());
+        return new Invite(eventId, optionalCalendarUser.get().getId(), eventTitle);
     }
 }

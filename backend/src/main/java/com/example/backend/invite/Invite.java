@@ -2,24 +2,32 @@ package com.example.backend.invite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Invite {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "invite_sequence",
+            sequenceName = "invite_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "invite_sequence"
+    )
     Long id;
     @JsonProperty
     Long eventId;
     @JsonProperty
     Long inviteeId;
+    @JsonProperty
+    String eventTitle;
 
-    public Invite(Long eventId, Long inviteeId) {
+    public Invite(Long eventId, Long inviteeId, String eventTitle) {
         this.eventId = eventId;
         this.inviteeId = inviteeId;
+        this.eventTitle = eventTitle;
     }
 
     public Invite() {
@@ -47,3 +55,5 @@ public class Invite {
                 '}';
     }
 }
+
+
