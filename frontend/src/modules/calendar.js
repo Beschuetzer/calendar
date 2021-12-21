@@ -97,7 +97,6 @@ export default function reducer(state = INITIAL_STATE, action) {
                     break;
                 }
             }
-            console.table({id: action.id, setInviteIsAttending: action.payload, copyOfInvites})
 
             return {
                 ...state,
@@ -407,8 +406,14 @@ export function deleteEvent(id) {
 
 export function setIsAttendingOnInvite(invite, isAttending) {
     return (dispatch, getState) => {
-        console.table({invite,  isAttending})
         dispatch(setInviteIsAttending(invite.id, isAttending))
+
+        const changeIsAttendingEndpoint = getEndPoint("changeIsAttending", invite.id,  invite.invitee, isAttending);
+        fetch(changeIsAttendingEndpoint.url, {
+            method: changeIsAttendingEndpoint.method,
+            headers: changeIsAttendingEndpoint.headers,
+        })
+        //todo: hook up to backend
     }
 }
 

@@ -49,6 +49,18 @@ public class Invite {
         return inviteeId;
     }
 
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public Boolean getIsAttending() {
+        return isAttending;
+    }
+
+    public void setAttending(Boolean attending) {
+        isAttending = attending;
+    }
+
     @Override
     public String toString() {
         return "Invite{" +

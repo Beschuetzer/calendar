@@ -27,4 +27,14 @@ public class InviteController {
     ) {
         return this.service.addInvites(eventId, usernames);
     }
+
+    @CrossOrigin
+    @PatchMapping
+    public ResponseEntity<String> changeIsAttending(
+            @RequestParam("id") Long id,
+            @RequestParam("inviteeId") Long inviteeId,
+            @RequestParam("isAttending") Boolean isAttending
+    ) {
+        return this.service.changeIsAttending(id, inviteeId, isAttending);
+    }
 }
