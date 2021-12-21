@@ -4,10 +4,10 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 import ToastFade from "react-bootstrap/ToastFade";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {getBodyMsg} from '../../helpers/helpers'
-import {setShouldResetToastTimeout, setShouldShowToast} from "../../modules/home";
+import {getBodyMsg} from '../helpers/helpers'
+import {setShouldResetToastTimeout, setShouldShowToast} from "../modules/home";
 
-LoginToast.propTypes = {
+Toast.propTypes = {
     position: PropTypes.string,
     closeButton: PropTypes.bool,
     body: PropTypes.string,
@@ -18,7 +18,7 @@ LoginToast.propTypes = {
     textColor: PropTypes.string,
 };
 
-function LoginToast({
+function AppToast({
                         position,
                         closeButton = false,
                         time,
@@ -34,6 +34,9 @@ function LoginToast({
     const shouldResetToastTimeout = useSelector(state => state.login.shouldResetToastTimeout);
     const showToastFadeTimeoutLocal = useRef(-1);
 
+    const getZIndex = () => {
+        return shouldShowToast ? 10000 : -1;
+    }
 
     const setToastBooleans = useCallback((value) => {
         dispatch(setShouldResetToastTimeout(value));
@@ -59,7 +62,7 @@ function LoginToast({
     
     return (
         <ToastFade in={shouldShowToast}>
-            <ToastContainer className="p-3" position={position} style={{zIndex: 10000}}>
+            <ToastContainer className="p-3" position={position} style={{zIndex: getZIndex()}}>
                 <Toast className={`bg-${toastBackgroundColor} text-${toastTextColor}`}>
                     <Toast.Header closeButton={closeButton}>
                         <strong className="me-auto">{toastHeader}</strong>
@@ -91,4 +94,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginToast);
+export default connect(mapStateToProps, mapDispatchToProps)(AppToast);

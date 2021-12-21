@@ -6,7 +6,7 @@ import Login from "./components/Login/Login.jsx";
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Logout from "./components/Logout/Logout.jsx";
 import Register from "./components/Register/Register.jsx";
-import LoginToast from "./components/Login/LoginToast";
+import LoginToast from "./components/AppToast";
 import React from "react";
 
 function App() {
