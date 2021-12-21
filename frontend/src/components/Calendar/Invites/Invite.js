@@ -36,7 +36,7 @@ function Invite({invite}) {
     }
 
     const renderItem = () => {
-        return (<ListGroup.Item action onClick={(e) => handleClick(e)} variant={"info"} as={"li"} style={{cursor: "pointer"}}>
+        return (<ListGroup.Item action onClick={(e) => handleClick(e)} variant={isAttending ? "success" : "danger"} as={"li"} style={{cursor: "pointer"}}>
             <Row>
                 <Col>
                     <h5>{invite.eventTitle}</h5>
