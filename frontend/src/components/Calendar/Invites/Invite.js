@@ -17,10 +17,10 @@ function Invite({invite}) {
         if (shouldShowButtons) return (
             <Row>
                 <Col className={"text-center"}>
-                    <Button variant={"success"} onClick={(e) => handleButtonClick(e, true)}>Accept</Button>
+                    <Button disabled={invite.isAttending} variant={"success"} onClick={(e) => handleButtonClick(e, true)}>Accept</Button>
                 </Col>
                 <Col className={"text-center"}>
-                    <Button variant={"danger"} onClick={(e) => handleButtonClick(e, false)}>Decline</Button>
+                    <Button disabled={!invite.isAttending} variant={"danger"} onClick={(e) => handleButtonClick(e, false)}>Decline</Button>
                 </Col>
             </Row>
         )
