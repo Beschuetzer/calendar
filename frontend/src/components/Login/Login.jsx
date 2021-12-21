@@ -17,16 +17,8 @@ import { useSelector } from 'react-redux';
 function Login(
 ) {
     const dispatch = useDispatch();
-    const shouldShowToast = useSelector(state => state.login.shouldShowToast);
-    const shouldResetToastTimeout = useSelector(state => state.login.shouldResetToastTimeout);
-    const toastHeader = useSelector(state => state.login.toastHeader);
-    const toastMessage = useSelector(state => state.login.toastMessage);
-    const toastBackgroundColor = useSelector(state => state.login.toastBackgroundColor);
-    const toastTextColor = useSelector(state => state.login.toastTextColor);
-
     const navigate = useNavigate();
-    const SHOW_TOAST_DURATION = 3000;
-    const showToastFadeTimeoutLocal = useRef(-1);
+
 
     function redirectToCalendar(id,username) {
         console.log("redirecting")
@@ -37,28 +29,6 @@ function Login(
     function handleLoginFail(message) {
         dispatch(handleLoginFailure(message));
     }
-
-    const setToastBooleans = useCallback((value) => {
-        dispatch(setShouldResetToastTimeout(value));
-        dispatch(setShouldShowToast(value));
-    }, [dispatch])
-
-    useEffect(() => {
-        showToastFadeTimeoutLocal.current = setTimeout(() => {
-            setToastBooleans(false);
-        }, SHOW_TOAST_DURATION)
-
-        return (() => {
-            clearInterval(showToastFadeTimeoutLocal.current);
-        })
-    }, [shouldShowToast, setToastBooleans]);
-
-    useEffect(() => {
-        if (shouldResetToastTimeout) {
-            clearInterval(showToastFadeTimeoutLocal.current);
-            setToastBooleans(false);
-        }
-    }, [shouldResetToastTimeout, setToastBooleans])
 
     return (
         <React.Fragment>
@@ -72,15 +42,6 @@ function Login(
                     </section>
                 </Col>
             </Row>
-            <LoginToast
-                shouldShowToast={shouldShowToast}
-                position={"middle-center"}
-                bgColor={toastBackgroundColor}
-                textColor={toastTextColor}
-                header={toastHeader}
-            >
-                {toastMessage}
-            </LoginToast>
             <InputGroup></InputGroup>
         </React.Fragment>
     );
