@@ -404,6 +404,19 @@ export function setIsAttendingOnInvite(invite, isAttending) {
     }
 }
 
+export  function getInviteDetails(invite, shouldShowDetails) {
+    return (dispatch, getState) => {
+        console.table({invite,  shouldShowDetails})
+        if (!shouldShowDetails) return;
+
+        //check cache for invite and return if already present
+
+        //otherwise fetch from backend
+        //store retrieved InviteWithDetails in cache
+        //update invites such that retrieved InviteWithDetails is in the place of the original Invite (thereby updating UI)
+    }
+}
+
 //endregion
 
 //region Helpers

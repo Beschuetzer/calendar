@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import {setIsAttendingOnInvite} from "../../../modules/calendar";
+import {setIsAttendingOnInvite, getInviteDetails} from "../../../modules/calendar";
 import {useDispatch} from "react-redux";
 
 
@@ -38,6 +38,7 @@ function Invite({invite}) {
     const handleExpandClick = (e, value) => {
         e.stopPropagation();
         setShouldShowButtons(value);
+        dispatch(getInviteDetails(invite, value))
     }
 
     const renderItem = () => {
