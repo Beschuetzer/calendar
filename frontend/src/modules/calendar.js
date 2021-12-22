@@ -426,7 +426,6 @@ export function setIsAttendingOnInvite(invite, isAttending) {
 
 export  function getInviteDetails(invite, shouldShowDetails) {
     return (dispatch, getState) => {
-        console.table({invite,  shouldShowDetails})
         if (!shouldShowDetails) return;
 
         //check cache for invite and return if already present
@@ -492,11 +491,11 @@ export function createInvites() {
 
 export function setToast(message, backgroundColor = "success", headerText = "Error Occurred!") {
     return (dispatch, getState) => {
-        console.log("setToast called")
+        dispatch(setShouldResetToastTimeout(true));
         dispatch(setToastHeader(headerText))
         dispatch(setToastBackground(backgroundColor));
         dispatch(setToastMessage(message))
-        dispatch(setShouldShowToast(true))
+        dispatch(setShouldShowToast(true));
     }
 }
 //endregion
