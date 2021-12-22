@@ -37,8 +37,6 @@ E
 frontend/src/store.js,6/e/6e166a84850d3d64ee1b156268b4236e29c06e91
 E
 frontend/src/index.js,0/9/09a4e53ab0e5e7637fd01136f19a9bb570e1ef2d
-`
-0frontend/src/components/Register/RegisterForm.js,d/f/dfd880e23638269d7e41e17180404f595e5e28af
 ]
 -frontend/src/components/Register/Register.jsx,0/a/0ae8f2af3aa4a8ac5b962996876154fc1cb3754c
 W
@@ -53,18 +51,12 @@ f
 6frontend/src/components/Calendar/Events/EventFilter.js,3/5/354b331653735a6265a6a0b9ae2d842979413fca
 t
 Dbackend/src/main/java/com/example/backend/login/LoginController.java,6/5/658b779f3b3f65b6790e010072312f239937a2dd
-y
-Ibackend/src/main/java/com/example/backend/calendar_user/CalendarUser.java,5/9/591ccf5400b9d7837491bbce192828a394adab0a
-P
- frontend/src/modules/register.js,9/b/9bc60d6ffb78437b72894642046435f89a20d15e
 q
 Abackend/src/main/java/com/example/backend/login/LoginService.java,d/4/d4ef6afaf1d0b839eba66ba53e1263d5269dbe1c
 L
 frontend/src/modules/home.js,7/8/7845e247123c20b49fdcc1d8c441ca853f76c87e
 T
 $frontend/src/components/AppToast.jsx,c/8/c85578c3872285bf4fcd7bae387ad41fe4c8bbe0
-[
-+frontend/src/components/Login/LoginForm.jsx,1/a/1ad204b86b560881c28a13e0b8c90fe413d248dc
 e
 5backend/src/main/java/com/example/backend/SeedDB.java,9/5/95ba4a334e3aef4cf5bda2561d733e7db3873a72
 ƒ
@@ -73,7 +65,5 @@ Y
 )frontend/src/components/Logout/Logout.jsx,f/e/fec7c00a9e4dd42371f6cc7ccdf07c9ba6f17c9b
 a
 1frontend/src/components/Navigation/Navigation.jsx,0/3/03892baa6baf71162a8124869b67467a48025e43
-z
-Jbackend/src/main/java/com/example/backend/register/RegisterController.java,5/b/5bc57da8d38ec097e4d8ef99c4cc3b339536f695
-w
-Gbackend/src/main/java/com/example/backend/register/RegisterService.java,0/c/0c033eb3482b614e4ace995f8103cec2e525ff93
+~
+Nbackend/src/test/java/com/example/backend/register/RegisterControllerTest.java,d/d/dd6793fbbe747bd9dcd65600e83ad5c69c501bb4

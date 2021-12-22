@@ -11,7 +11,6 @@ function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [shouldShowErrorModal, setShouldShowErrorModal] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const ageRef = useRef(-1);

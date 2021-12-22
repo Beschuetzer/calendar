@@ -27,8 +27,8 @@ function LoginForm({
                        handleLoginFail,
                        shouldDisableSubmitButton,
                    }) {
-    const [username, setUsername] = useState("test");
-    const [password, setPassword] = useState("test");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         const loginEndPoint = getEndPoint("login");
@@ -55,7 +55,7 @@ function LoginForm({
                     })
             })
             .catch(err => {
-                throw new Error(err);
+                handleLoginFail(err?.message ? err.message : err);
             })
 
             dispatch(setShouldResetToastTimeout(true));

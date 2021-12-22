@@ -1,4 +1,4 @@
-import { setCurrentUser} from '../modules/home'
+import {setCurrentUser, setCurrentUserId} from '../modules/home'
 import { setShouldShowWelcome } from '../modules/calendar'
 import {getEndPoint} from "../data/endPoints";
 import {getSha256} from "../helpers/helpers";
@@ -38,8 +38,6 @@ export const setRegistrationResult = (registrationResult) => {
 export function executeAddUser(userObj, navigate) {
     return (dispatch, getState) => {
         if (!userObj || !userObj.username || !userObj.password) return;
-        console.table(userObj)
-
         const registerEndpoint = getEndPoint("register");
 
         getSha256(userObj.password)
@@ -56,6 +54,7 @@ export function executeAddUser(userObj, navigate) {
 
                         if (json.username) {
                             dispatch(setCurrentUser(json.username));
+                            dispatch(setCurrentUserId(json.id));
                             dispatch(setShouldShowWelcome(true));
                             navigate('/calendar');
                         }

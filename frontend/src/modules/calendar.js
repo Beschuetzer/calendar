@@ -32,15 +32,15 @@ const RESET_CALENDAR_STATE = "react_redux/calendar/RESET_CALENDAR_STATE"
 //endregion
 
 const INITIAL_STATE = {
-    shouldShowWelcome: false,
-    events: [],
-    filteredEvents: [],
-    invites: [],
     cachedInvites: [],
-    eventToEdit: null,
-    shouldShowEventModal: false,
+    events: [],
     eventToInviteTo: null,
+    eventToEdit: null,
+    filteredEvents: [],
     hasLoadedEventToEdit: false,
+    invites: [],
+    shouldShowWelcome: false,
+    shouldShowEventModal: false,
     usersToInvite: [],
 
 }
