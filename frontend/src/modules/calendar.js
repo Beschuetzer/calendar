@@ -11,6 +11,7 @@ import {
 } from "./home";
 import {setRegistrationResult} from "./register";
 
+//region Action Types---------------------------------------------------------------------------------------------------
 const SET_SHOULD_SHOW_WELCOME = "react_redux/calendar/SET_SHOULD_SHOW_WELCOME"
 const ADD_EVENT = "react_redux/calendar/ADD_EVENT"
 const REMOVE_EVENT = "react_redux/calendar/REMOVE_EVENT"
@@ -24,20 +25,24 @@ const SET_INVITE_IS_ATTENDING = "react_redux/calendar/SET_INVITE_IS_ATTENDING"
 const SET_HAS_LOADED_EVENT_TO_EDIT = "react_redux/calendar/SET_HAS_LOADED_EVENT_TO_EDIT"
 const RESET_EVENT_TO_EDIT = "react_redux/calendar/RESET_EVENT_TO_EDIT"
 const ADD_USER_TO_INVITE = "react_redux/calendar/ADD_USER_TO_INVITE"
+const ADD_CACHED_INVITE = "react_redux/calendar/ADD_CACHED_INVITE"
 const REMOVE_USER_TO_INVITE = "react_redux/calendar/REMOVE_USER_TO_INVITE"
 const RESET_USERS_TO_INVITE = "react_redux/calendar/RESET_USERS_TO_INVITE"
 const RESET_CALENDAR_STATE = "react_redux/calendar/RESET_CALENDAR_STATE"
+//endregion
 
 const INITIAL_STATE = {
     shouldShowWelcome: false,
     events: [],
     filteredEvents: [],
     invites: [],
+    cachedInvites: [],
     eventToEdit: null,
     shouldShowEventModal: false,
     eventToInviteTo: null,
     hasLoadedEventToEdit: false,
     usersToInvite: [],
+
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -124,6 +129,11 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 usersToInvite: [...state.usersToInvite, action.payload],
             }
+        case ADD_CACHED_INVITE:
+            return {
+                ...state,
+                invites: [...state.cachedInvites, action.payload]
+            }
         case REMOVE_USER_TO_INVITE:
             return {
                 ...state,
@@ -145,6 +155,14 @@ export default function reducer(state = INITIAL_STATE, action) {
             }
         default:
             return state;
+    }
+}
+
+//region Action Creators------------------------------------------------------------------------------------------------
+export function addCachedInvite(invite) {
+    return {
+        type: ADD_CACHED_INVITE,
+        payload: invite,
     }
 }
 
@@ -257,8 +275,10 @@ export function setInviteIsAttending(inviteId, isAttending) {
         payload: isAttending,
     }
 }
+//endregion
 
-//region Side FX
+
+//region Side FX--------------------------------------------------------------------------------------------------------
 export function openAddEventModal() {
     return (dispatch, getState) => {
         dispatch(resetEventToEdit())
@@ -419,7 +439,8 @@ export  function getInviteDetails(invite, shouldShowDetails) {
 
 //endregion
 
-//region Helpers
+
+//region Helpers--------------------------------------------------------------------------------------------------------
 export function putEvent(eventToModify) {
     return (dispatch, getState) => {
         const editEventsEndpoint = getEndPoint("editEvent", eventToModify.id, eventToModify.owner);
