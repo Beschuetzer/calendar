@@ -78,7 +78,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -150,7 +150,7 @@
       <updated>1639691993527</updated>
       <workItem from="1639691995039" duration="12397000" />
       <workItem from="1640178023233" duration="1528000" />
-      <workItem from="1640179779402" duration="1671000" />
+      <workItem from="1640179779402" duration="3125000" />
     </task>
     <servers />
   </component>

@@ -21,14 +21,16 @@ LoginForm.propTypes = {
     shouldDisableSubmitButton: PropTypes.bool,
 };
 
+const DEFAULT_INPUT_VALUE = "test";
+
 function LoginForm({
                        dispatch,
                        handleLoginSuccess,
                        handleLoginFail,
                        shouldDisableSubmitButton,
                    }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState(DEFAULT_INPUT_VALUE);
+    const [password, setPassword] = useState(DEFAULT_INPUT_VALUE);
 
     const handleSubmit = (e) => {
         const loginEndPoint = getEndPoint("login");
