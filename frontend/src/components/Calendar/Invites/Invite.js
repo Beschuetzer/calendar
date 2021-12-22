@@ -28,8 +28,11 @@ function Invite({invite}) {
 
     const handleButtonClick = (e, value) => {
         e.stopPropagation();
-        setShouldShowButtons(false);
-        dispatch(setIsAttendingOnInvite(invite, value))
+        const promise = dispatch(setIsAttendingOnInvite(invite, value));
+        promise.then(isSuccessful => {
+            if (isSuccessful) setShouldShowButtons(false);
+            else setShouldShowButtons(true);
+        });
     }
 
     const handleExpandClick = (e, value) => {

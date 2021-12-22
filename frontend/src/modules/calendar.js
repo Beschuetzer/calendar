@@ -385,9 +385,8 @@ export function deleteEvent(id) {
 
 export function setIsAttendingOnInvite(invite, isAttending) {
     return (dispatch, getState) => {
-        dispatch(setInviteIsAttending(invite.id, isAttending))
         const changeIsAttendingEndpoint = getEndPoint("changeIsAttending", invite.id, invite.inviteeId, isAttending);
-        fetch(changeIsAttendingEndpoint.url, {
+        return fetch(changeIsAttendingEndpoint.url, {
             method: changeIsAttendingEndpoint.method,
         })
             .then(response => response)
@@ -395,9 +394,12 @@ export function setIsAttendingOnInvite(invite, isAttending) {
                 let message = `Enjoy '${invite.eventTitle}'.`
                 if (!isAttending) message = `Maybe next time you will attend '${invite.eventTitle}'?`;
                 dispatch(setToast(message, json.ok ? "success" : "danger", json.ok ? "Status Changed!" : "Error Occurred!"));
+                dispatch(setInviteIsAttending(invite.id, isAttending))
+                return true;
             })
             .catch(err => {
                 dispatch(setToast(err, "danger"))
+                return false;
             })
     }
 }
