@@ -3,12 +3,14 @@ import {useSelector, useDispatch} from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Pagination from 'react-bootstrap/Pagination';
 
 import Event from './Event'
 import EventFilter from './EventFilter'
 import EventModal from './EventModal'
 import InviteModal from '../Invites/InviteModal'
 import {openAddEventModal} from '../../../modules/calendar'
+import ItemPagination from "../../ItemPagination";
 
 function EventsManager(props) {
     const dispatch = useDispatch();
@@ -36,6 +38,7 @@ function EventsManager(props) {
         })
     }
 
+
     return (
         <Row>
             <Col className={"text-center text-md-start mb-3"}>
@@ -55,6 +58,7 @@ function EventsManager(props) {
             </Row>
             <EventModal></EventModal>
             <InviteModal></InviteModal>
+            <ItemPagination/>
         </Row>
     );
 }
